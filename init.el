@@ -240,7 +240,6 @@
  '(TeX-view-program-list (quote (("SystemDefault" "open %o"))))
  '(TeX-view-program-selection (quote (((output-dvi style-pstricks) "dvips and gv") (output-dvi "xdvi") (output-pdf "SystemDefault") (output-html "SystemDefault"))))
  '(cua-mode t nil (cua-base))
- '(mediawiki-site-alist (quote (("Lab" "http://cogmod.osu.edu/plwiki/" "nvanhorn" "p4plwin1211" "Main Page"))))
  '(org-agenda-files (quote ("~/main/org/todo.org")))
  '(tool-bar-mode nil))
 (custom-set-faces
