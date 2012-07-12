@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# name: wiki template
+# key: wiki
+# --
+= TITLE =
+
+<pre>
+
+BIBTEX
+
+</pre>
+
+PDF available (XXXKB): {{pdf|NameN11.pdf}}<br>
+
+=== Abstract ===
+
+----
+See also [[Vision papers]], [[PapersBySubject]]
