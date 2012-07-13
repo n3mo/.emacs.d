@@ -8,8 +8,9 @@
 (global-set-key (kbd "C-.") 'hippie-expand)
 
 ;; This keybinding uses ido completion for opening recent files
-;; (global-set-key (kbd "C-x C-r") 'ido-recentf-open)
-;; The following keybinding sets up recentf to behave like Aquamacs default
+;; (global-set-key (kbd "C-x C-r") 'ido-recentf-open). This replaces
+;; the built function 'find-file-read-only' set by default to this
+;; keybinding. 
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 
 ;; Flyspell has a great function that checks the spelling of the last
@@ -36,5 +37,11 @@
 ;; Inset file name at point. See init.el for the defun
 (global-set-key "\C-c\C-i" 'my-insert-file-name)
 
+;; Ace jump mode
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+;; If you also use viper mode :
+;; (define-key viper-vi-global-user-map (kbd "SPC") 'ace-jump-mode)
+
 ;; Expand region by semantic units
 (global-set-key (kbd "C-=") 'er/expand-region)
+

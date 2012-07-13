@@ -2,75 +2,44 @@
 (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
   (when (fboundp mode) (funcall mode -1)))
 
-;; The following line adds my customization .el scripts to the
-;; search path.
-(add-to-list 'load-path "~/.emacs.d/plugins")
-
-;; Load my custom functions 
-(load "my-functions.el")
-
 ;; Don't load the startup screen. It's obnoxious
 (setq inhibit-startup-message t)
 (setq inhibit-splash-screen t)
 
-;; Emacs for mac os x doesn't find my bash PATH, so I've specified it
-;; here manually
-(setenv "PATH"
-	(concat
-	 "/Users/nemo/bin" ":"
-	 "/opt/subversion/bin" ":"
-	 "/sw/bin" ":"
-	 "/sw/sbin" ":"
-	 "/bin" ":"
-	 "/sbin" ":" 
-	 "/usr/bin" ":" 
-	 "/usr/sbin" ":"
-	 "/usr/local/bin" ":"
-	 "/usr/texbin"
-	 ))
+;; Add the necessary directories to my load path. Some additional
+;; dependencies unique to certain modes may also be loaded in their
+;; respective files (e.g., I put the load path for the matlab-mode
+;; installation in the startup file "setup-matlab-mode.el")
+(add-to-list 'load-path "~/.emacs.d/plugins")
+(add-to-list 'load-path "~/.emacs.d/plugins/expand-region.el/")
+(add-to-list 'load-path "~/.emacs.d/plugins/bbdb-2.35/lisp")
 
-;; Specifying the path to the ghostscript binary seems nessary to get
-;; doc-view to work. This problem (and other "Emacs for Mac OS X" path
-;; problems can also be fixed by launchin Emacs.app from the terminal,
-;; rather than from the doc or finder. Launching emacs.app in that
-;; way ensures my full paths are loaded properly)
-(setq exec-path (append exec-path '("/sw/bin")))
+;; Set path to .emacs.d
+(setq dotfiles-dir (file-name-directory
+                    (or (buffer-file-name) load-file-name)))
+(add-to-list 'load-path dotfiles-dir)
 
-;; Mac OS  specific changes
-;; change command to meta, and ignore option to use weird Norwegian keyboard
-(setq mac-option-modifier 'none)
-(setq mac-command-modifier 'meta)
+;; Load my custom elisp functions file
+(load "my-functions.el")
+
+;; Most of my initialization script has been split into separate files
+;; in .emacs.d/ . Here they are...
+(load "setup-org-mode")
+(load "setup-ess-mode")
+(load "setup-ido-mode")
+(load "setup-matlab-mode")
+(load "mac")
+(load "key-bindings")
 
 ;; CUA mode is great. Adds many features I can't live without at this point
 (cua-mode t)
 (cua-selection-mode t)
 
-;; Set path to .emacs.d
-(setq dotfiles-dir (file-name-directory
-                    (or (buffer-file-name) load-file-name)))
-;; Set up load path
-(add-to-list 'load-path dotfiles-dir)
-
-;; Setup extensions
-(load "setup-org-mode")
-(load "setup-ess-mode")
-(load "key-bindings")
-
 ;; Enable recent files mode to open recently opened files
 (require 'recentf)
 (recentf-mode 1)
-;; get rid of `find-file-read-only' and replace it with something
-;; more useful.
- 
 ;; 25 files ought to be enough.
 (setq recentf-max-saved-items 25)
- 
-(defun ido-recentf-open ()
-  "Use `ido-completing-read' to \\[find-file] a recent file"
-  (interactive)
-  (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-      (message "Opening file...")
-    (message "Aborting")))
 
 ; I hate the audible alarm bell that emacs signals all the time. I
 ;; swtich to a visual bell here
@@ -84,92 +53,28 @@
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
 ;; This loads tab completion functionality much like Textmate
-;; by sourcing the relevant file
-(add-to-list 'load-path "~/.emacs.d/plugins")
+;; by sourcing the relevant file. Yay yasnippet!
 (require 'yasnippet-bundle)
 (yas/initialize)
 (yas/load-directory "~/.emacs.d/snippets")
 
-;; Get rid of the tool bar that is default on (i.e., this toggles it
-;; off). THIS IS DONE ABOVE MORE ELEGENTLY 
-;; (tool-bar-mode -1)
-
-;; Aquamacs provides its own mechanisms for adjusting color themes. These
-;; interfere with the method I prefer. To fix this, I manually set the color
-;; theme here
+;; I should probably get rid of the following eventually and switch to
+;; the new theme support built into Emacs 24+
 (require 'color-theme)
 (color-theme-initialize)
 (setq color-theme-is-global t)
 (color-theme-calm-forest)
 
-;; Turn off the scroll bar in emacs. THIS IS DONE MORE ELEGENTLY ABOVE
-;; (set-scroll-bar-mode 'nil)
-;; (set-scroll-bar-mode 'right)
-;; (set-scroll-bar-mode 'left)
+;; Enable disabled commands
 (put 'upcase-region 'disabled nil)
+(put 'dired-find-alternate-file 'disabled nil)
 
-;; ace-jump-mode. This minor mode provides quick navigation through
+;; Ace-jump-mode. This minor mode provides quick navigation through
 ;; the buffer by jumping to target words, characters, or lines. The
 ;; mode is mainted on github at
-;; https://github.com/winterTTr/ace-jump-mode 
-(add-to-list 'load-path "~/.emacs.d/plugins/")
+;; https://github.com/winterTTr/ace-jump-mode. The keybinding is
+;; defined in "key-bindings.el"  
 (require 'ace-jump-mode)
-(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
-;;
-;; ;;If you also use viper mode :
-;; (define-key viper-vi-global-user-map (kbd "SPC") 'ace-jump-mode)
-
-;; This code adds ido tab completion to imenu, making it quick and
-;; easy to jump to functions and other objects indexed by imenu.
-(defun ido-goto-symbol (&optional symbol-list)
-  "Refresh imenu and jump to a place in the buffer using Ido."
-  (interactive)
-  (unless (featurep 'imenu)
-    (require 'imenu nil t))
-  (cond
-   ((not symbol-list)
-    (let ((ido-mode ido-mode)
-          (ido-enable-flex-matching
-           (if (boundp 'ido-enable-flex-matching)
-               ido-enable-flex-matching t))
-          name-and-pos symbol-names position)
-      (unless ido-mode
-        (ido-mode 1)
-        (setq ido-enable-flex-matching t))
-      (while (progn
-               (imenu--cleanup)
-               (setq imenu--index-alist nil)
-               (ido-goto-symbol (imenu--make-index-alist))
-               (setq selected-symbol
-                     (ido-completing-read "Symbol? " symbol-names))
-               (string= (car imenu--rescan-item) selected-symbol)))
-      (unless (and (boundp 'mark-active) mark-active)
-        (push-mark nil t nil))
-      (setq position (cdr (assoc selected-symbol name-and-pos)))
-      (cond
-       ((overlayp position)
-        (goto-char (overlay-start position)))
-       (t
-        (goto-char position)))))
-   ((listp symbol-list)
-    (dolist (symbol symbol-list)
-      (let (name position)
-        (cond
-         ((and (listp symbol) (imenu--subalist-p symbol))
-          (ido-goto-symbol symbol))
-         ((listp symbol)
-          (setq name (car symbol))
-          (setq position (cdr symbol)))
-         ((stringp symbol)
-          (setq name symbol)
-          (setq position
-                (get-text-property 1 'org-imenu-marker symbol))))
-        (unless (or (null position) (null name)
-                    (string= (car imenu--rescan-item) name))
-          (add-to-list 'symbol-names name)
-          (add-to-list 'name-and-pos (cons name position))))))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; END of IDO imenu support
 
 ;; The standard zap-to-char function kills up through and including
 ;; the provided letter. I'd prefer to have it NOT kill the provided
@@ -188,25 +93,6 @@
 ;; replacement. I reassign the default behavior of the command to use
 ;; iBuffer in key-bindings.el
 (require 'ibuffer)
-
-;; Matlab supprt for emacs
-(add-to-list 'load-path "~/.emacs.d/plugins/matlab-emacs")
-(load-library "matlab-load")
-(add-to-list
- 'auto-mode-alist
- '("\\.m$" . matlab-mode))
-(setq matlab-indent-function t)
-
-;; The following line is necessary to get the "matlab-shell" command
-;; to start without loading the desktop. Uncomment the next line to
-;; prevent java from loading. This will produce errors during plotting. 
-;; In the future this cause errors. Use the second line to allow java
-;; to load, but to prevent the desktop GUI from loading. This is slower,
-;; but is the currently supported method for doing things.
-;; (setq matlab-shell-command-switches '("-nojvm -nosplash"))
-(setq matlab-shell-command-switches '("-nodesktop -nosplash"))
-
-(put 'dired-find-alternate-file 'disabled nil)
 
 ;; This bit of code creates an easy way to insert a filename (and its
 ;; path) into the buffer at point. 
@@ -294,23 +180,6 @@
 (unless (server-running-p)
   (server-start))
 
-;; This adds support for using OS X's address book database in
-;; GNUS. This allows you to start typing someone's name in an a
-;; message header and then press C-c TAB to complete their email
-;; address. It relied on the command line tool "contacts" which I
-;; installed to provide command line interaction the address book. 
-;; I have since adopted use of the Insidious Big Brother Database, so
-;; I am unlikely to need this slower option anymore. However, my OS X
-;; address book has different contacts and I could conceivably need
-;; them down the road, so this hack remains open
-(require 'external-abook)
-(setq external-abook-command "contacts -lSf '%%e\t\"%%n\"' '%s'")
-(eval-after-load "message" 
-  '(progn 
-     (add-to-list 'message-mode-hook 
-		  '(lambda ()
-		     (define-key message-mode-map "\C-c\t" 'external-abook-try-expand)))))
-
 ;; This enables automatic (d)encryption of files ending in .gpg using
 ;; EasyPG, which is included in emacs as of version 23. I'm using this
 ;; encrypt my gnus passwords
@@ -342,19 +211,16 @@ browse-url-generic-program "open")
 ;; These indentation modes are mutually exclusive! Only activate
 ;; one of the following three lines!
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
-
+;; (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+;; (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 
 ;; Expand region
-(add-to-list 'load-path "~/.emacs.d/plugins/expand-region.el/")
 (require 'expand-region)
 
 ;; An extended re-builder that supports perl regexs
 (load "~/.emacs.d/plugins/re-builder-X")
 
 ;; The insidious big brother database
-(add-to-list 'load-path "~/.emacs.d/plugins/bbdb-2.35/lisp")
 (setq bbdb-file "~/.emacs.d/bbdb")           ;; keep ~/ clean; set before loading
 (require 'bbdb) 
 (bbdb-initialize)
