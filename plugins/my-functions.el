@@ -17,10 +17,11 @@
 ;; need to be formatted manually in the destination application (with
 ;; italics, etc.). The function will eventually support any reference
 ;; type, but currently only supports the article format
-(defun bibtex-create-plain-text-reference ()
+(defun bibtex-create-plain-text-reference (prefixArgCode)
   "Pushes a plain text APA formatted reference of the current
-BibTeX entry to the kill ring"
-  (interactive)
+BibTeX entry to the kill ring. If `universal-argument' is called, the
+plain text reference is returned without pushing to the kill ring."
+  (interactive "P")
   (save-excursion
     (bibtex-beginning-of-entry)
     (setq myentry (bibtex-parse-entry))
@@ -43,7 +44,7 @@ BibTeX entry to the kill ring"
 	
 	;; Format the reference and push to the kill ring. We also
 	;; remove newline characters and extra whitespace from strings
-	(kill-new
+	(setq formatted-bibtex-text
 	 (format "%s. (%s). %s. %s, %s%s, %s." 
 		 (mapconcat 'identity (split-string
 				       (bibtex-text-in-field
@@ -57,9 +58,7 @@ BibTeX entry to the kill ring"
 			    " ")
 		 (bibtex-text-in-field "volume")
 		 mynumber
-		 newpages))
-	(message "Reference added to the kill ring.")
-	))
+		 newpages))))
      ;;;;;;;;;;;;;;;;;;;;
      ;; Book Entry
      ((equal "book" (downcase (cdr (assoc "=type=" myentry))))
@@ -72,7 +71,7 @@ BibTeX entry to the kill ring"
 						"editor")))) 
 
 	;; Format the reference and push to the kill ring
-	(kill-new
+	(setq formatted-bibtex-text
 	 (format "%s. (%s). %s. %s %s: %s."
 		 (mapconcat 'identity (split-string
 				       (bibtex-text-in-field
@@ -83,15 +82,14 @@ BibTeX entry to the kill ring"
 			    " " )
 		 myeditor
 		 (bibtex-text-in-field "address")
-		 (bibtex-text-in-field "publisher")))
-	(message "Reference added to the kill ring.")
-	))
+		 (bibtex-text-in-field "publisher")))))
      ;; Else...
      (t
-      (message "This BibTeX entry type is not supported!")
-      ))
-    )
-  )
+      (message "This BibTeX entry type is not supported!"))))
+  (when (equal prefixArgCode nil)
+      (kill-new formatted-bibtex-text)
+      (message "Reference pushed to the kill ring"))
+  formatted-bibtex-text)
 
 ;; This is a wrapper function that applies the function
 ;; bibtex-create-plain-text-reference to the entire buffer. The
@@ -102,23 +100,18 @@ BibTeX entry to the kill ring"
 ;; into the special buffer *references*
 (defun bibtex-convert-buffer-to-plain-text ()
   "Convert all bibtex entries in the current buffer to plain text
-references. Results are pushed into a new buffer called *References*"
+references. Results are pushed into a new buffer called *references*"
   (interactive)
   (save-excursion
     (beginning-of-buffer)
-    (setq callingBuffer (buffer-name))
-    (setq exportBuffer "*references*")
-    (switch-to-buffer-other-window (get-buffer-create exportBuffer))
-    (erase-buffer)
-    (switch-to-buffer-other-window callingBuffer)
-    (while (not (eobp))
-      (bibtex-skip-to-valid-entry)
-      (bibtex-create-plain-text-reference)
-      (next-line)
-      (switch-to-buffer-other-window exportBuffer)
-      (insert (concat (yank) "\n\n"))
-      (switch-to-buffer-other-window callingBuffer))
-    (switch-to-buffer-other-window exportBuffer)))
+    (with-output-to-temp-buffer "*references*"
+      (while (not (eobp))
+	(bibtex-skip-to-valid-entry)
+	(setq current-formatted-text
+	      (bibtex-create-plain-text-reference t))
+	(if (not (eobp)) (next-line))
+	(princ (concat current-formatted-text "\n\n")))))
+  (message "References written to buffer *references*"))
 
 ;; This function for easy creation of wiki pages for article entries
 ;; on the cogmod lab wiki

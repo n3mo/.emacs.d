@@ -45,3 +45,4 @@
 ;; Expand region by semantic units
 (global-set-key (kbd "C-=") 'er/expand-region)
 
+(provide 'key-bindings)

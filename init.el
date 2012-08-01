@@ -1,5 +1,5 @@
 ;; Turn off mouse interface early in startup to avoid momentary display
-(dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
+(dolist (mode '(tool-bar-mode scroll-bar-mode))
   (when (fboundp mode) (funcall mode -1)))
 
 ;; Don't load the startup screen. It's obnoxious
@@ -19,21 +19,28 @@
                     (or (buffer-file-name) load-file-name)))
 (add-to-list 'load-path dotfiles-dir)
 
+;; Keep emacs Custom-settings in separate file
+(setq custom-file (expand-file-name "custom.el" dotfiles-dir))
+(load custom-file)
+
 ;; Load my custom elisp functions file
-(load "my-functions.el")
+(load "my-functions")
 
 ;; Most of my initialization script has been split into separate files
 ;; in .emacs.d/ . Here they are...
-(load "setup-org-mode")
-(load "setup-ess-mode")
-(load "setup-ido-mode")
-(load "setup-matlab-mode")
-(load "mac")
-(load "key-bindings")
+(require 'setup-org-mode)
+(require 'setup-ess-mode)
+(require 'setup-ido-mode)
+(require 'setup-matlab-mode)
+(require 'mac)
+(require 'key-bindings)
 
 ;; CUA mode is great. Adds many features I can't live without at this point
 (cua-mode t)
 (cua-selection-mode t)
+
+;; Highlight matching parentheses when the point is on them.
+(show-paren-mode 1)
 
 ;; Enable recent files mode to open recently opened files
 (require 'recentf)
@@ -116,24 +123,6 @@
 	 (insert (expand-file-name filename)))
 	(t
 	 (insert filename))))
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(TeX-PDF-mode t)
- '(TeX-view-program-list (quote (("SystemDefault" "open %o"))))
- '(TeX-view-program-selection (quote (((output-dvi style-pstricks) "dvips and gv") (output-dvi "xdvi") (output-pdf "SystemDefault") (output-html "SystemDefault"))))
- '(cua-mode t nil (cua-base))
- '(org-agenda-files (quote ("~/main/org/todo.org")))
- '(tool-bar-mode nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 
 ;; I have manually installed AUCTeX for latex management. It was
 ;; installed in Emacs.app/Contents/Resources/site-lisp, which is on
@@ -262,3 +251,20 @@ browse-url-generic-program "open")
 
 ;; Add bbdb GNUS hook
 (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+
+;; Keep all backup ~ files created by emacs in one place
+(setq backup-directory-alist '(("." . "~/.saves")))
+
+;; Since my backup ~ files are accumulating in one place and I'm
+;; unlikely to check in on them and delete old files, this bit of code
+;; will check the age of backup files and remove those that haven't
+;; been accessed in over a week
+(message "Deleting old backup files...")
+(let ((week (* 60 60 24 7))
+      (current (float-time (current-time))))
+  (dolist (file (directory-files temporary-file-directory t))
+    (when (and (backup-file-name-p file)
+               (> (- current (float-time (fifth (file-attributes file))))
+                  week))
+      (message "%s" file)
+      (delete-file file))))

@@ -52,3 +52,4 @@
 (setq delete-by-moving-to-trash t
       trash-directory "~/.Trash/emacs")
 
+(provide 'mac)

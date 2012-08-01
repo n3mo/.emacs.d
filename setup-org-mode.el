@@ -18,6 +18,15 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 
+;; Org capture settings for capturing tasks, journal entries, etc.
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline (concat org-directory
+						 "/todo.org") "Tasks") 
+	 "* TODO %?\n  %i\n  %a")
+        ("j" "Journal" entry (file+datetree (concat org-directory
+						    "/journal.org"))
+	 "* %?\nEntered on %U\n  %i\n  %a")))
+
 ;;;;;;;;;; ORG-BABEL CONFIGURATION
 ;; stop C-c C-c within code blocks from querying
 (setq org-confirm-babel-evaluate nil)
@@ -29,5 +38,6 @@
  'org-babel-load-languages
  '((R . t)
    (sh . t)
-   (emacs-lisp . t)
-   ))
+   (emacs-lisp . t)))
+
+(provide 'setup-org-mode)

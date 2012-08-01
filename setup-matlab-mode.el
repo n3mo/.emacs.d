@@ -18,3 +18,5 @@
 ;; but is the currently supported method for doing things.
 ;; (setq matlab-shell-command-switches '("-nojvm -nosplash"))
 (setq matlab-shell-command-switches '("-nodesktop -nosplash"))
+
+(provide 'setup-matlab-mode)

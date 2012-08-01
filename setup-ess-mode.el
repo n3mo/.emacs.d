@@ -30,3 +30,5 @@
      (setq comint-scroll-show-maximum-output t)
      ;; somewhat extreme, almost disabling writing in *R*, *shell* buffers above prompt
      (setq comint-scroll-to-bottom-on-input 'this) )) ; eval-after-load "comint"
+
+(provide 'setup-ess-mode)
