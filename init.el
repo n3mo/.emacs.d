@@ -34,6 +34,7 @@
 (require 'setup-matlab-mode)
 (require 'mac)
 (require 'key-bindings)
+(require 'bibtex-to-plain-text)
 
 ;; CUA mode is great. Adds many features I can't live without at this point
 (cua-mode t)
@@ -268,3 +269,13 @@ browse-url-generic-program "open")
                   week))
       (message "%s" file)
       (delete-file file))))
+
+;; Stefan Monnier <foo at acm.org>. It is the opposite of fill-paragraph    
+(defun unfill-paragraph ()
+  "Takes a multi-line paragraph and makes it into a single line of text."
+  (interactive)
+  (let ((fill-column (point-max)))
+    (fill-paragraph nil)))
+
+;; Handy key definition
+: (define-key global-map "\M-Q" 'unfill-paragraph)
