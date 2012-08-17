@@ -9,8 +9,11 @@
 ;; automatically when the output reaches the bottom of the window.
 (setq ess-comint-scroll-to-bottom-on-output t)
 
-(add-hook 'ess-mode-hook (lambda () 
-			   (setq truncate-lines t)))
+(add-hook 'ess-mode-hook 
+	  (lambda () 
+	    (setq truncate-lines t)))
+
+(add-hook 'R-mode-hook 'auto-fill-mode)
 
 ;; Taken from Section 4.5 of the ESS manual:
 (eval-after-load "comint" 

@@ -4,11 +4,14 @@
 (setq load-path (cons "~/main/org/emacs-app/org-mode/lisp" load-path))
 (require 'org-install)
 
+;; The local-unset-key in this hook removes the org-mode binding that
+;; shadows what I have set for ace-jump-mode ("C-c SPC").
 (add-hook 'org-mode-hook 
-	  (lambda ()
-	    (flyspell-mode)
-	    (visual-line-mode)
-	    (auto-fill-mode)))
+	  (function (lambda ()
+		      (flyspell-mode)
+		      (visual-line-mode)
+		      (auto-fill-mode)
+		      (local-unset-key (kbd "C-c SPC")))))
 
 (setq org-directory "~/main/org")
 (setq org-default-notes-file (concat org-directory "/todo.org"))

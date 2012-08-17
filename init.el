@@ -33,8 +33,8 @@
 (require 'setup-ido-mode)
 (require 'setup-matlab-mode)
 (require 'mac)
-(require 'key-bindings)
 (require 'bibtex-to-plain-text)
+(require 'key-bindings)
 
 ;; CUA mode is great. Adds many features I can't live without at this point
 (cua-mode t)
@@ -56,6 +56,8 @@
 ;; instead
 ;; (setq ring-bell-function 'ignore)
 
+(add-hook 'emacs-lisp-mode-hook 'auto-fill-mode)
+
 ;; Add color to a shell running in emacs 'M-x shell'
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
@@ -68,10 +70,17 @@
 
 ;; I should probably get rid of the following eventually and switch to
 ;; the new theme support built into Emacs 24+
-(require 'color-theme)
-(color-theme-initialize)
-(setq color-theme-is-global t)
-(color-theme-calm-forest)
+;; (require 'color-theme)
+;; (color-theme-initialize)
+;; (setq color-theme-is-global t)
+;; (color-theme-calm-forest)
+
+;; As above indicates, I'm making the move away from the
+;; color-theme-package (not because I really hated it, but because
+;; Emacs has built in support now that I'd rather use). My custom
+;; added themes are in the following directory
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(load-theme 'wombat t)
 
 ;; Enable disabled commands
 (put 'upcase-region 'disabled nil)
@@ -278,4 +287,10 @@ browse-url-generic-program "open")
     (fill-paragraph nil)))
 
 ;; Handy key definition
-: (define-key global-map "\M-Q" 'unfill-paragraph)
+(define-key global-map "\M-Q" 'unfill-paragraph)
+
+;; Here are the Emacs lisp repositories that I draw from (for
+;; packages-list-packages, etc)
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+			 ("marmalade" . "http://marmalade-repo.org/packages")
+			 ("melpa" . "http://melpa.milkbox.net/packages/")))
