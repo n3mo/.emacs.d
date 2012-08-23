@@ -294,3 +294,10 @@ browse-url-generic-program "open")
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
 			 ("marmalade" . "http://marmalade-repo.org/packages")
 			 ("melpa" . "http://melpa.milkbox.net/packages/")))
+
+;; This is necessary for bibtex-to-plain-text to work
+(load "bibtex")
+
+;; This provides reftex with the path to my bibtex files
+(setq reftex-bibpath-environment-variables
+      '("~/main/work/docs/papers/bib/"))

@@ -20,7 +20,8 @@
 	 "/usr/bin" ":" 
 	 "/usr/sbin" ":"
 	 "/usr/local/bin" ":"
-	 "/usr/texbin"
+	 "/usr/texbin" ":"
+	 "~/Library/Haskell/bin"
 	 ))
 
 ;; Specifying the path to the ghostscript binary seems nessary to get
