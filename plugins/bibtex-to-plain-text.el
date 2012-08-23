@@ -60,6 +60,11 @@
 ;;    (setq bibtex-to-plain-text-style your-list-here) 
 ;; to change the style. 
 
+;; This set of functions requires bibtex and reftex to be loaded
+(require 'bibtex)
+(require 'reftex-cite)
+					 
+
 (setq bibtex-to-plain-text-apa-formats
       '(
 	("article" . (("author" "year" "title" "journal" "volume"
@@ -76,8 +81,6 @@
 (setq bibtex-to-plain-text-style bibtex-to-plain-text-apa-formats)
 
 
-
-
 ;; This function will push a plain text formatted reference to the
 ;; kill ring based on the current BibTeX entry under point. The
 ;; purpose of this is for sharing citations with other programs that
@@ -91,7 +94,7 @@ entry to the kill ring. If `universal-argument' is called, the
 plain text reference is returned without pushing to the kill
 ring. Customize the variable bibtex-to-plain-text-style
 to control allowable BibTeX entry types and their corresponding
-entry types."
+formatting."
   (interactive "P")
   (save-excursion
     (bibtex-beginning-of-entry)
@@ -207,7 +210,87 @@ into a new buffer called *references*"
 	(setq current-formatted-text
 	      (bibtex-create-plain-text-reference t))
 	(if (not (eobp)) (next-line))
-	(princ (concat current-formatted-text "\n\n")))))
+	(princ (concat current-formatted-text "\n\n"))))
+    (set-buffer "*references*")
+    (fundamental-mode)
+    (setq buffer-read-only nil))
   (message "References written to buffer *references*"))
+
+;; **************************************************
+;; LaTeX To Plain Text Utilities
+;; **************************************************
+;; 
+;; Functions below this point apply the same logic and functionality
+;; as those above. The difference is this: the functions above act on
+;; BibTeX entries in a buffer, whereas functions below act on
+;; citation markups in LaTeX formatted buffers. Thus, whereas
+;; bibtex-create-plain-text-reference creates a single plain text
+;; reference based on a BibTeX entry,
+;; latex-create-plain-text-reference does the same thing for a
+;; \cite{bib-key} occurance. 
+
+(defun latex-convert-buffer-to-plain-text ()
+  "Convert all LaTeX-formatted citation markups in the current
+buffer to plain text references. This function finds each
+citation entry and formats it into a plain text
+reference. Results are pushed into a new buffer called
+*references*"
+  (interactive)
+  (save-excursion
+    ;; Extract all citations and write their corresponding BibTeX
+    ;; entries to a temporary buffer
+    (latex-create-bibtex-buffer)
+    ;; Change to the newly created buffer and utilize the bibtex-
+    ;; functions above
+    (setq bib-buffer-name "*bibEntries*")
+    (set-buffer bib-buffer-name)
+    (bibtex-convert-buffer-to-plain-text)
+    (kill-buffer bib-buffer-name)))
+
+(defun latex-create-bibtex-buffer ()
+  "Create a new BibTeX database buffer with all entries
+  referenced in document.  Only entries referenced in the current
+  document with any \\cite-like macros are used.  The sequence in
+  the new buffer is the same as it was in the old database. Note that
+  this functions like reftex-create-bibtex-file with the notable
+  difference that results are inserted into a buffer rather than a new
+  file."
+  (interactive)
+  (let ((keys (reftex-all-used-citation-keys))
+        (files (reftex-get-bibfile-list))
+        file key entries beg end entry)
+    ;; We want to work in a temporary buffer
+    (setq bib-buffer-name "*bibEntries*")
+
+    (while (setq file (pop files))
+      (set-buffer (reftex-get-file-buffer-force file 'mark))
+      (reftex-with-special-syntax-for-bib
+       (save-excursion
+	 (save-restriction
+	   (widen)
+	   (goto-char (point-min))
+	   (while (re-search-forward "^[ \t]*@\\(?:\\w\\|\\s_\\)+[ \t\n\r]*\
+\[{(][ \t\n\r]*\\([^ \t\n\r,]+\\)" nil t)
+	     (setq key (match-string 1)
+		   beg (match-beginning 0)
+		   end (progn
+			 (goto-char (match-beginning 1))
+			 (condition-case nil
+			     (up-list 1)
+			   (error (goto-char (match-end 0))))
+			 (point)))
+	     (when (member key keys)
+	       (setq entry (buffer-substring beg end)
+		     entries (cons entry entries)
+		     keys (delete key keys))))))))
+    ;; (find-file-other-window bibfile)
+    ;; (switch-to-buffer bib-buffer-name)
+    (switch-to-buffer bib-buffer-name)
+    (bibtex-mode)
+    (insert (mapconcat 'identity (reverse entries) "\n\n"))
+    (goto-char (point-min))
+    (message "%d entries extracted and copied to %s"
+	     (length entries) bib-buffer-name)))
+
 
 (provide 'bibtex-to-plain-text)
