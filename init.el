@@ -35,6 +35,7 @@
 (require 'mac)
 (require 'bibtex-to-plain-text)
 (require 'key-bindings)
+(require 'org-tree-slide)
 
 ;; CUA mode is great. Adds many features I can't live without at this point
 (cua-mode t)

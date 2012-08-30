@@ -30,6 +30,9 @@
 ;; terminal, rather than from the doc or finder. Launching emacs.app
 ;; in that way ensures my full paths are loaded properly.
 (setq exec-path (append exec-path '("/sw/bin")))
+(setq exec-path (append exec-path '("/Users/nemo/bin")))
+;; Specify git binaries
+(setq exec-path (append exec-path '("/usr/local/bin")))
 
 ;; This adds support for using OS X's address book database in
 ;; GNUS. This allows you to start typing someone's name in an a
