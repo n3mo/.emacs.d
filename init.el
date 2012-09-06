@@ -302,3 +302,6 @@ browse-url-generic-program "open")
 ;; This provides reftex with the path to my bibtex files
 (setq reftex-bibpath-environment-variables
       '("~/main/work/docs/papers/bib/"))
+
+;; Turn on spell checking when sending messages
+(add-hook 'message-mode-hook 'flyspell-mode)
