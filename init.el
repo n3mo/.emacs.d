@@ -13,6 +13,8 @@
 (add-to-list 'load-path "~/.emacs.d/plugins")
 (add-to-list 'load-path "~/.emacs.d/plugins/expand-region.el/")
 (add-to-list 'load-path "~/.emacs.d/plugins/bbdb-2.35/lisp")
+(add-to-list 'load-path "~/.emacs.d/plugins/r-autoyas")
+(add-to-list 'load-path "/Applications/Emacs.app/Contents/Resources/site-lisp/")
 
 ;; Set path to .emacs.d
 (setq dotfiles-dir (file-name-directory
@@ -81,7 +83,8 @@
 ;; Emacs has built in support now that I'd rather use). My custom
 ;; added themes are in the following directory
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(load-theme 'wombat t)
+;; (load-theme 'wombat t) ;; Previous favorite
+(load-theme 'cyberpunk t)  ;; Taken from Emacs-live
 
 ;; Enable disabled commands
 (put 'upcase-region 'disabled nil)
@@ -136,10 +139,11 @@
 	 (insert filename))))
 
 ;; I have manually installed AUCTeX for latex management. It was
-;; installed in Emacs.app/Contents/Resources/site-lisp, which is on
-;; the load path already. Still, it must be loaded to be usable in
-;; emacs: 
-(load "auctex.el" nil t t)
+;; installed in /Applications/Emacs.app/Contents/Resources/site-lisp/,
+;; which was added to the load path above. Still, it must be loaded to
+;; be usable in emacs:
+
+(load "auctex.el" nil t t) 
 (load "preview-latex.el" nil t t)
 
 ;; Some default behaviors and minor modes for use with AUCTeX mode
@@ -305,3 +309,13 @@ browse-url-generic-program "open")
 
 ;; Turn on spell checking when sending messages
 (add-hook 'message-mode-hook 'flyspell-mode)
+
+;; The following lines of code are used to add a synonym method for 
+;; thesaurus functionality.
+;; To use library Synonyms, you will need the Moby Thesaurus II file,
+;; `mthesaur.txt', available here:
+;;
+;; ftp://ibiblio.org/pub/docs/books/gutenberg/etext02/mthes10.zip
+(setq synonyms-file "/Users/nemo/.emacs.d/plugins/mthes10/mthesaur.txt")
+(setq synonyms-cache-file "/Users/nemo/.emacs.d/plugins/synonym_cache")
+(require 'synonyms)

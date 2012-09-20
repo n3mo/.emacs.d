@@ -1,8 +1,18 @@
 ;; The following lines points to the custom org-mode installation that I 
 ;; performed to get up to date. I did so because the default
 ;; org-mode installed is often highly outdated
-(setq load-path (cons "~/main/org/emacs-app/org-mode/lisp" load-path))
-(require 'org-install)
+
+;; I used to manually install org-mode. Now, I use the Emacs 24+
+;; package system. This was my old method of targeting my custom install.
+;; (setq load-path (cons "~/main/org/emacs-app/org-mode/lisp" load-path))
+
+;; The following line shouldn't be necessary, but I found it necessary
+;; to get the elpa-installed org mode to take precedence over the
+;; built-in version. This is a shame, as every time I update org-mode
+;; with package.el, I will need to manually change the load-path
+;; below. 
+(add-to-list 'load-path "~/.emacs.d/elpa/org-20120903/")
+(require 'org-install) ;; This also shouldn't be necessary...
 
 ;; The local-unset-key in this hook removes the org-mode binding that
 ;; shadows what I have set for ace-jump-mode ("C-c SPC").

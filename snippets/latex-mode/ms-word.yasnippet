@@ -1,0 +1,41 @@
+# -*- mode: snippet -*-
+# name: ms-word
+# key: ms
+# group: skeleton
+# contributor: Nicholas Van Horn
+# --
+\documentclass[12pt, fignum, doc]{apa}
+\usepackage{setspace}  
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry} 
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+
+\title{}
+\author{Nicholas Van Horn}
+\date{}
+\affiliation{The Ohio State University}
+
+\pagestyle{fancy}                   % Enable custom headings
+\lhead{}                            % Header definitions
+\rhead{}
+\renewcommand{\headrulewidth}{0cm}  % Want a rule under the header?
+\raggedright                        % Non-justified text
+\parindent=1.5em                    % Needed for \raggedright to indent paragraphs
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% End of preamble
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+%\maketitle
+\doublespacing
+\noindent Nicholas Van Horn \newline
+${1:Psych 615} \newline
+${2:Paper's Title}
+
+$0
+
+\clearpage
+\bibliographystyle{plain}
+\bibliography{/Users/nemo/main/work/docs/papers/bib/allrefs_NVH}
+\end{document}
