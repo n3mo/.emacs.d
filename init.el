@@ -11,6 +11,7 @@
 ;; respective files (e.g., I put the load path for the matlab-mode
 ;; installation in the startup file "setup-matlab-mode.el")
 (add-to-list 'load-path "~/.emacs.d/plugins")
+(add-to-list 'load-path "~/.emacs.d/plugins/bibtex-to-plain-text.el")
 (add-to-list 'load-path "~/.emacs.d/plugins/expand-region.el/")
 (add-to-list 'load-path "~/.emacs.d/plugins/bbdb-2.35/lisp")
 (add-to-list 'load-path "~/.emacs.d/plugins/r-autoyas")
@@ -26,7 +27,7 @@
 (load custom-file)
 
 ;; Load my custom elisp functions file
-(load "my-functions")
+;(load "my-functions")
 
 ;; Most of my initialization script has been split into separate files
 ;; in .emacs.d/ . Here they are...
@@ -40,8 +41,8 @@
 (require 'org-tree-slide)
 
 ;; CUA mode is great. Adds many features I can't live without at this point
-(cua-mode t)
-(cua-selection-mode t)
+;; (cua-mode t)
+(cua-selection-mode t) ; I don't want to C-x C-v cua functionality
 
 ;; Highlight matching parentheses when the point is on them.
 (show-paren-mode 1)
@@ -319,3 +320,16 @@ browse-url-generic-program "open")
 (setq synonyms-file "/Users/nemo/.emacs.d/plugins/mthes10/mthesaur.txt")
 (setq synonyms-cache-file "/Users/nemo/.emacs.d/plugins/synonym_cache")
 (require 'synonyms)
+
+;; On my system (OS X), the program "ls" does not support the --dired
+;; flag. By default, dired tries to issue the command "ls --dired"
+;; unless the following varible is set to nil. See 
+;; C-h v dired-use-ls-dired for more info
+(setq dired-use-ls-dired nil)
+
+;; I want to make use of registers more often. Besides those created
+;; on the fly, there are a few that I will use often, so they are set
+;; here. To jump to a register, use C-x r j e, where the "e" is
+;; replaced with the register of choice (the registers are written as
+;; ?e, etc. below)
+(set-register ?e '(file . "~/.emacs.d/"))
