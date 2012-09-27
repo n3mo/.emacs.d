@@ -45,4 +45,28 @@
 ;; Expand region by semantic units
 (global-set-key (kbd "C-=") 'er/expand-region)
 
+;; Multiple cursors keybindings (installed thru
+;; list-packages). Suggestions for keybindings found at github, but
+;; I use my own tweaks
+;; https://github.com/magnars/multiple-cursors.el
+;; From active region to multiple cursors:
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+;; I also bind the same function to the more friendly option that is
+;; close to expand-region (and this also doesn't require the shift
+;; key). This replaces the built-in keybinding for
+;; toggle-input-method, something that I am very unlikely to need
+;; often. 
+(global-set-key (kbd "C-\\") 'mc/mark-next-like-this)
+;; This overwrites the built-in binding to delete-horizontal-space. I
+;; never use this, but use instead the similar just-one-space bound to
+;; M-space 
+(global-set-key (kbd "M-\\") 'mc/mark-all-like-this)
+;; Some others I could use
+;; (global-set-key (kbd "C-å") 'mc/mark-previous-like-this)
+;; (global-set-key (kbd "C-æ") 'mc/mark-next-like-this)
+;; (global-set-key (kbd "C-Æ") 'mc/mark-more-like-this-extended)
+;; (global-set-key (kbd "M-å") 'mc/mark-all-in-region)
+
 (provide 'key-bindings)
