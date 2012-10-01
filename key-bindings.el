@@ -69,4 +69,8 @@
 ;; (global-set-key (kbd "C-Æ") 'mc/mark-more-like-this-extended)
 ;; (global-set-key (kbd "M-å") 'mc/mark-all-in-region)
 
+;; The following function bound to this key sequence is defined in
+;; .emacs.d/plugins/my-functions.el 
+(global-set-key (kbd "C-c r") 'replace-last-sexp)
+
 (provide 'key-bindings)

@@ -27,7 +27,7 @@
 (load custom-file)
 
 ;; Load my custom elisp functions file
-;(load "my-functions")
+(load "my-functions")
 
 ;; Most of my initialization script has been split into separate files
 ;; in .emacs.d/ . Here they are...
@@ -84,6 +84,7 @@
 ;; Emacs has built in support now that I'd rather use). My custom
 ;; added themes are in the following directory
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/cyberpunk-theme.el/")
 ;; (load-theme 'wombat t) ;; Previous favorite
 (load-theme 'cyberpunk t)  ;; Taken from Emacs-live
 
