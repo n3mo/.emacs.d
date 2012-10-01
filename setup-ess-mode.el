@@ -1,7 +1,6 @@
-;; This loads a more recent build of ESS-mode, much newer than the
-;; version packaged with Aquamacs
-(load "/Applications/Aquamacs.app/Contents/Resources/lisp/ess-12.04/lisp/ess-site")
-
+;; The files for ess-mode are installed in
+;; /Applications/Emacs.app/Contents/Resources/site-lisp/ 
+;; This activates the mode:
 (require 'ess-site)
 
 ;; This prevents eval-region (C-c C-r) from printing commands in the R
@@ -18,8 +17,8 @@
 ;; Control-= thereby restoring the usual way to enter an underscore
 ;; character.  (princ "In all ESS buffers, 'C-=' will be bound to
 ;; 'ess-smart-underscore. "). 
-(setq ess-S-assign-key (kbd "C-="))
-(ess-toggle-S-assign-key t)
+;; (setq ess-S-assign-key (kbd "C-="))
+;; (ess-toggle-S-assign-key t)
 (ess-toggle-underscore nil)
 
 ;; Some custom hooks
