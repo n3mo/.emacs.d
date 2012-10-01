@@ -5,6 +5,21 @@
 ;; Many of the functions also have aliases defined for ease of use.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;       Assorted Utility Functions   ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; This function evaluates the sexp before point (similar to
+;; eval-last-sexp) and replaces the sexp with its result.
+(defun replace-last-sexp ()
+  "Evaluate sexp before point; replace the sexp with the
+output. Similar to running `eval-last-sexp' with the prefix argument,
+  with the addition that the sexp is replaced by the result."
+  (interactive)
+  (let ((value (eval (preceding-sexp))))
+    (kill-sexp -1)
+    (insert (format "%s" value))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;       BibTeX Functions             ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; The following functions interact with BibTeX entries (bibtex mode
@@ -28,9 +43,7 @@
       (replace-match mytitle t t))
     (beginning-of-buffer)
     (while (search-forward "NameN11" nil t)
-      (replace-match mykey t t))
-    )
-)
+      (replace-match mykey t t))))
 
 ;; This function opens a browser tab (or buffer in conkeror) for the
 ;; doi of the current BibTeX entry. Obviously, point must be inside of
