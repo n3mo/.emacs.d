@@ -334,3 +334,8 @@ browse-url-generic-program "open")
 ;; replaced with the register of choice (the registers are written as
 ;; ?e, etc. below)
 (set-register ?e '(file . "~/.emacs.d/"))
+
+;; Markdown mode is enabled for file type .md, as this is what's used
+;; by github
+(setq auto-mode-alist
+      (cons '("\\.md" . markdown-mode) auto-mode-alist))
