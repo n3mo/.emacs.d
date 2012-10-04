@@ -73,4 +73,15 @@
 ;; .emacs.d/plugins/my-functions.el 
 (global-set-key (kbd "C-c r") 'replace-last-sexp)
 
+;; Org-mode global key bindings
+;; (global-set-key "\C-cl" 'org-store-link)
+;; (global-set-key "\C-cb" 'org-iswitchb)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-ca" 'org-agenda)
+
+;; Linum-mode easy access. Also, an easy switch between relative and
+;; absolute line numbering
+(global-set-key (kbd "C-c l") 'linum-mode)
+(global-set-key (kbd "C-c C-l") 'linum-relative-toggle)
+
 (provide 'key-bindings)

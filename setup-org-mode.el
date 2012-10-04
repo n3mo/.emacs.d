@@ -25,11 +25,6 @@
 
 (setq org-directory "~/main/org")
 (setq org-default-notes-file (concat org-directory "/todo.org"))
-;; These set global bindings, available always in emacs, regardless of mode
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
 
 ;; Org capture settings for capturing tasks, journal entries, etc.
 (setq org-capture-templates
