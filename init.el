@@ -12,7 +12,6 @@
 ;; installation in the startup file "setup-matlab-mode.el")
 (add-to-list 'load-path "~/.emacs.d/plugins")
 (add-to-list 'load-path "~/.emacs.d/plugins/bibtex-to-plain-text.el")
-(add-to-list 'load-path "~/.emacs.d/plugins/expand-region.el")
 (add-to-list 'load-path "~/.emacs.d/plugins/bbdb-2.35/lisp")
 (add-to-list 'load-path "~/.emacs.d/plugins/r-autoyas")
 (add-to-list 'load-path "/Applications/Emacs.app/Contents/Resources/site-lisp")
