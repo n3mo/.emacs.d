@@ -211,7 +211,7 @@ browse-url-generic-program "open")
 ;; (add-to-list 'default-frame-alist '(width . 80))
 
 ;; Load haskell-mode files
-(load "~/.emacs.d/plugins/haskell-mode/haskell-site-file")
+(load "~/.emacs.d/plugins/haskell-mode/haskell-site-file" t)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 ;; These indentation modes are mutually exclusive! Only activate
 ;; one of the following three lines!
@@ -220,7 +220,7 @@ browse-url-generic-program "open")
 ;; (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 
 ;; Expand region
-(require 'expand-region)
+;; (require 'expand-region)
 
 ;; An extended re-builder that supports perl regexs
 (load "~/.emacs.d/plugins/re-builder-X")

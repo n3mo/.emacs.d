@@ -51,7 +51,7 @@
 	   (setq comint-scroll-to-bottom-on-input 'this) )) ; eval-after-load "comint"
 
       ;; auto yasnippet creating for R mode
-      (require 'r-autoyas)
-      (add-hook 'ess-mode-hook 'r-autoyas-ess-activate)
+      ;; (require 'r-autoyas)
+      ;; (add-hook 'ess-mode-hook 'r-autoyas-ess-activate)
       ))
 (provide 'setup-ess-mode)
