@@ -33,7 +33,10 @@
 	 "* TODO %?\n  %i\n  %a")
         ("j" "Journal" entry (file+datetree (concat org-directory
 						    "/journal.org"))
-	 "* %?\nEntered on %U\n  %i\n  %a")))
+	 "* %?\nEntered on %U\n  %i\n  %a")
+	("k" "Kwotes" item (file+headline
+			    (concat org-directory "/quotes.org")
+			    "Unsorted Quotes"))))
 
 ;;;;;;;;;; ORG-BABEL CONFIGURATION
 ;; stop C-c C-c within code blocks from querying
