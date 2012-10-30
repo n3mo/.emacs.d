@@ -190,7 +190,11 @@
 ;; encrypt my gnus passwords
 (require 'epa-file) 
 ;; (epa-file-enable)
-(setq epg-gpg-program "/usr/local/bin/gpg")  ;; I manually specify the binary files here
+;; On my Mac, the gpg is installed in an unusual place. I must specify
+;; its location to get things working
+(if (eq system-type 'darwin)
+    ;; I manually specify the binary files here
+    (setq epg-gpg-program "/usr/local/bin/gpg"))
 
 ;; Mediawiki mode for wiki pages
 (require 'mediawiki)
