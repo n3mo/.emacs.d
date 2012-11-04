@@ -207,8 +207,9 @@
 ;; I could not use CMD-i on an html file in Finder to set conkeror to
 ;; open all similar files. I had to open Safari, go to preferences,
 ;; and set Conkeror as the default web browser there.
-(setq browse-url-browser-function 'browse-url-generic
-browse-url-generic-program "open")
+(if (eq system-type 'darwin)
+    (setq browse-url-browser-function 'browse-url-generic
+	  browse-url-generic-program "open"))
 
 ;; Set startup frame dimensions
 ;; (add-to-list 'default-frame-alist '(height . 90))
