@@ -350,5 +350,4 @@
 ;; (require 'linum-relative)
 (autoload 'linum-relative-toggle "linum-relative")
 
-
 ;; init.el ends here.

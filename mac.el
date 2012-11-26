@@ -23,7 +23,8 @@
 	       "/usr/sbin" ":"
 	       "/usr/local/bin" ":"
 	       "/usr/texbin" ":"
-	       "~/Library/Haskell/bin"
+	       "~/Library/Haskell/bin" ":"
+	       "/Applications/Racket v5.3.1/bin"
 	       ))
 
       ;; Specifying the path to the ghostscript binary seems nessary to get
@@ -56,6 +57,15 @@
 
       ;; Move to trash when deleting stuff
       (setq delete-by-moving-to-trash t
-	    trash-directory "~/.Trash/emacs")))
+	    trash-directory "~/.Trash/emacs")
+
+      ;; Racket tweaks
+      ;; Despite my efforts to fix path issues on my mac (including
+      ;; using the exec-path package in MELPA, geiser still cannot
+      ;; find the racket binaries on my mac. This specificies exactly
+      ;; where they are to solve this problem:
+      (setq geiser-racket-binary 
+	    "/Applications/Racket v5.3.1/bin/racket")
+))
       
 (provide 'mac)
