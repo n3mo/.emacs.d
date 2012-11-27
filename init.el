@@ -350,4 +350,13 @@
 ;; (require 'linum-relative)
 (autoload 'linum-relative-toggle "linum-relative")
 
+;; Lisp editing functionality (Clojure, racket, guile, etc.)
+;; Avoid error buffer while working in nrepl
+(setq nrepl-popup-stacktraces nil)
+
+;; Add hooks for paredit mode for various lisp environments
+(add-hook 'nrepl-mode-hook 'paredit-mode)
+(add-hook 'scheme-mode-hook 'paredit-mode)
+(add-hook 'clojure-mode-hook 'paredit-mode)
+
 ;; init.el ends here.
