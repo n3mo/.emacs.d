@@ -359,4 +359,9 @@
 (add-hook 'scheme-mode-hook 'paredit-mode)
 (add-hook 'clojure-mode-hook 'paredit-mode)
 
+;; I've been experimenting with various flavors of scheme. This sets
+;; the default binary to run when an inferior scheme lisp repl is
+;; called 
+(setq scheme-program-name "csi -:c")  ;; Chicken scheme
+
 ;; init.el ends here.
