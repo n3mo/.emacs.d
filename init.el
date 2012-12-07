@@ -15,6 +15,7 @@
 (add-to-list 'load-path "~/.emacs.d/plugins/bbdb-2.35/lisp")
 (add-to-list 'load-path "~/.emacs.d/plugins/r-autoyas")
 (add-to-list 'load-path "/Applications/Emacs.app/Contents/Resources/site-lisp")
+(add-to-list 'load-path "~/.emacs.d/plugins/noob-arrows-mode.el/")
 
 ;; Set path to .emacs.d
 (setq dotfiles-dir (file-name-directory
@@ -38,6 +39,7 @@
 (require 'bibtex-to-plain-text)
 (require 'key-bindings)
 (require 'org-tree-slide)
+(require 'noob-arrows-mode)
 
 ;; CUA mode is great. Adds many features I can't live without at this point
 ;; (cua-mode t)
@@ -363,5 +365,10 @@
 ;; the default binary to run when an inferior scheme lisp repl is
 ;; called 
 (setq scheme-program-name "csi -:c")  ;; Chicken scheme
+
+;; Noob arrows-- my own custom helper function for Emacs newbies
+;; This sets the path to the help file to be displayed
+;; (setq noob-arrows-help-file
+;;       "~/.emacs.d/plugins/noob-arrows-mode.el/noob-arrows-help-file.txt")
 
 ;; init.el ends here.
