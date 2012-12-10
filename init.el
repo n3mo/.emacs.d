@@ -366,9 +366,15 @@
 ;; called 
 (setq scheme-program-name "csi -:c")  ;; Chicken scheme
 
+;; This sets the default common lisp program
+(setq inferior-lisp-program "sbcl")
+
 ;; Noob arrows-- my own custom helper function for Emacs newbies
 ;; This sets the path to the help file to be displayed
 ;; (setq noob-arrows-help-file
 ;;       "~/.emacs.d/plugins/noob-arrows-mode.el/noob-arrows-help-file.txt")
+
+
+
 
 ;; init.el ends here.
