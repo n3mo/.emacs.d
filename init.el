@@ -364,7 +364,14 @@
 ;; I've been experimenting with various flavors of scheme. This sets
 ;; the default binary to run when an inferior scheme lisp repl is
 ;; called 
-(setq scheme-program-name "csi -:c")  ;; Chicken scheme
+;; (setq scheme-program-name "csi -:c")  ;; Chicken scheme
+(setq scheme-program-name "racket")  ;; Racketscheme
+
+;; I'm experimenting with various chicken-scheme modes. Currently, I'm
+;; using cluck, which is a chicken-specific fork of quack-mode:
+;; https://github.com/ddp/cluck
+;; (add-to-list 'load-path "~/.emacs.d/plugins/cluck/")
+;; (require 'cluck)
 
 ;; This sets the default common lisp program
 (setq inferior-lisp-program "sbcl")
