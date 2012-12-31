@@ -399,6 +399,18 @@
  '(define-key inferior-scheme-mode-map "\C-cd"
     (lambda () (interactive) (chicken-doc 'sexp-at-point))))
 
+;; Or better yet, chicken-slime integration!
+;; Where Eggs are installed
+(add-to-list 'load-path "/usr/local/lib/chicken/6/")
+(autoload 'chicken-slime "chicken-slime" "SWANK backend for Chicken" t)
+;; We can now load functionality by running the function chicken-slime
+;; in Emacs
+(add-hook 'scheme-mode-hook
+          (lambda ()
+           (slime-mode t)))
+
+;; Quicklisp seems to be the wave of the future
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
 ;; This sets the default common lisp program
 (setq inferior-lisp-program "sbcl")
 

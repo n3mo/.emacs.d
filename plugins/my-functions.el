@@ -19,6 +19,26 @@ output. Similar to running `eval-last-sexp' with the prefix argument,
     (kill-sexp -1)
     (insert (format "%s" value))))
 
+;; Taken from Magnar's blog "What the .emacs.d!?". These two functions
+;; make it simple to move a line up or down by one. They are bound to
+;; C-S-Up and C-S-Down in my keybindings file
+(defun move-line-down ()
+  (interactive)
+  (let ((col (current-column)))
+    (save-excursion
+      (forward-line)
+      (transpose-lines 1))
+    (forward-line)
+    (move-to-column col)))
+
+(defun move-line-up ()
+  (interactive)
+  (let ((col (current-column)))
+    (save-excursion
+      (forward-line)
+      (transpose-lines -1))
+    (move-to-column col)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;       BibTeX Functions             ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

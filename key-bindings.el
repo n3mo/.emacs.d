@@ -84,4 +84,9 @@
 (global-set-key (kbd "C-c l") 'linum-mode)
 (global-set-key (kbd "C-c C-l") 'linum-relative-toggle)
 
+;; These pair with the functions move-line-down and move-line-up,
+;; defined in my-functions.el
+(global-set-key (kbd "<C-S-down>") 'move-line-down)
+(global-set-key (kbd "<C-S-up>") 'move-line-up)
+
 (provide 'key-bindings)
