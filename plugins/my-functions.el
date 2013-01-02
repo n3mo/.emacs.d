@@ -22,22 +22,25 @@ output. Similar to running `eval-last-sexp' with the prefix argument,
 ;; Taken from Magnar's blog "What the .emacs.d!?". These two functions
 ;; make it simple to move a line up or down by one. They are bound to
 ;; C-S-Up and C-S-Down in my keybindings file
-(defun move-line-down ()
-  (interactive)
-  (let ((col (current-column)))
-    (save-excursion
-      (forward-line)
-      (transpose-lines 1))
-    (forward-line)
-    (move-to-column col)))
+;; 
+;; I have replaced this functionality with the emacs package
+;; move-text, which works on lines and regions. Installed from melpa. 
+;; (defun move-line-down ()
+;;   (interactive)
+;;   (let ((col (current-column)))
+;;     (save-excursion
+;;       (forward-line)
+;;       (transpose-lines 1))
+;;     (forward-line)
+;;     (move-to-column col)))
 
-(defun move-line-up ()
-  (interactive)
-  (let ((col (current-column)))
-    (save-excursion
-      (forward-line)
-      (transpose-lines -1))
-    (move-to-column col)))
+;; (defun move-line-up ()
+;;   (interactive)
+;;   (let ((col (current-column)))
+;;     (save-excursion
+;;       (forward-line)
+;;       (transpose-lines -1))
+;;     (move-to-column col)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;       BibTeX Functions             ;;
