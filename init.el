@@ -31,6 +31,7 @@
 
 ;; Most of my initialization script has been split into separate files
 ;; in .emacs.d/ . Here they are...
+(require 'setup-scheme-mode)
 (require 'setup-org-mode)
 (require 'setup-ess-mode)
 (require 'setup-ido-mode)
@@ -87,7 +88,8 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/cyberpunk-theme.el/")
 ;; (load-theme 'wombat t) ;; Previous favorite
-(load-theme 'cyberpunk t)  ;; Taken from Emacs-live
+(load-theme 'cyberpunk t)  ;; My theme
+;; (load-theme 'tango t) ;; For exporting org files
 
 ;; Enable disabled commands
 (put 'upcase-region 'disabled nil)
@@ -361,54 +363,6 @@
 (add-hook 'scheme-mode-hook 'paredit-mode)
 (add-hook 'clojure-mode-hook 'paredit-mode)
 
-;; I REALLY like geiser-mode for editing scheme. Unfortunately, it
-;; only works with Guile and Racket. This is frustrating when I'm
-;; editing (for example) Chicken scheme and Geiser-mode keeps
-;; activating. Setting this to nil ensures that geiser-mode does not
-;; activate automatically
-(setq geiser-mode-auto-p nil)
-
-;; I've been experimenting with various flavors of scheme. This sets
-;; the default binary to run when an inferior scheme lisp repl is
-;; called 
-(setq scheme-program-name "csi -:c")  ;; Chicken scheme
-;; (setq scheme-program-name "racket")  ;; Racketscheme
-
-;; I'm experimenting with various chicken-scheme modes. Currently, I'm
-;; using cluck, which is a chicken-specific fork of quack-mode:
-;; https://github.com/ddp/cluck
-;; (add-to-list 'load-path "~/.emacs.d/plugins/cluck/")
-;; (require 'cluck)
-;; (require 'quack)
-
-;; Chicken-doc customization for finding documentation of sexp at
-;; point
-(defun chicken-doc (&optional obtain-function)
-  (interactive)
-  (let ((func (funcall (or obtain-function 'current-word))))
-    (when func
-      (process-send-string (scheme-proc)
-                           (format "(require-library chicken-doc) ,doc %S\n" func))
-      (save-selected-window
-        (select-window (display-buffer (get-buffer scheme-buffer) t))
-        (goto-char (point-max))))))
-
-(eval-after-load 'cmuscheme
-  '(define-key scheme-mode-map "\C-cd" 'chicken-doc))
-(eval-after-load 'cmuscheme
- '(define-key inferior-scheme-mode-map "\C-cd"
-    (lambda () (interactive) (chicken-doc 'sexp-at-point))))
-
-;; Or better yet, chicken-slime integration!
-;; Where Eggs are installed
-(add-to-list 'load-path "/usr/local/lib/chicken/6/")
-(autoload 'chicken-slime "chicken-slime" "SWANK backend for Chicken" t)
-;; We can now load functionality by running the function chicken-slime
-;; in Emacs
-(add-hook 'scheme-mode-hook
-          (lambda ()
-           (slime-mode t)))
-
 ;; Quicklisp seems to be the wave of the future
 (load (expand-file-name "~/quicklisp/slime-helper.el"))
 ;; This sets the default common lisp program
@@ -418,8 +372,5 @@
 ;; This sets the path to the help file to be displayed
 ;; (setq noob-arrows-help-file
 ;;       "~/.emacs.d/plugins/noob-arrows-mode.el/noob-arrows-help-file.txt")
-
-
-
 
 ;; init.el ends here.
