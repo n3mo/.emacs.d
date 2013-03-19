@@ -17,6 +17,13 @@
 (add-to-list 'load-path "/Applications/Emacs.app/Contents/Resources/site-lisp")
 (add-to-list 'load-path "~/.emacs.d/plugins/noob-arrows-mode.el/")
 
+;; Emacs Multimedia System
+(add-to-list 'load-path "~/elisp/emms/lisp")
+(if (require 'emms-setup nil t)
+    (progn 
+      (emms-standard)
+      (emms-default-players)))
+
 ;; Set path to .emacs.d
 (setq dotfiles-dir (file-name-directory
                     (or (buffer-file-name) load-file-name)))
