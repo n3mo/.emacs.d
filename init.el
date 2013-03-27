@@ -150,13 +150,16 @@
 	(t
 	 (insert filename))))
 
+;; AUCTeX is now installable via package.el. Thankfully I won't be
+;; reinstalling this every time I install a new version of Emacs on
+;; OSX. As such, the two load functions below are no longer needed.
 ;; I have manually installed AUCTeX for latex management. It was
 ;; installed in /Applications/Emacs.app/Contents/Resources/site-lisp/,
 ;; which was added to the load path above. Still, it must be loaded to
 ;; be usable in emacs:
 
-(load "auctex.el" nil t t) 
-(load "preview-latex.el" nil t t)
+;; (load "auctex.el" nil t t) 
+;; (load "preview-latex.el" nil t t)
 
 ;; Some default behaviors and minor modes for use with AUCTeX mode
 (setq TeX-auto-save t)
