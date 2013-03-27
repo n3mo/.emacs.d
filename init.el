@@ -383,4 +383,20 @@
 ;; (setq noob-arrows-help-file
 ;;       "~/.emacs.d/plugins/noob-arrows-mode.el/noob-arrows-help-file.txt")
 
+;; Toggles fullscreen, just like you'd expect.
+(defun toggle-fullscreen ()
+  (interactive)
+  (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
+                                           nil
+                                           'fullboth)))
+
+;; Toggles the appearance of a minimap (a la Sublime Text) for the
+;; current buffer
+(defun minimap-toggle ()
+  "Toggle minimap for current buffer."
+  (interactive)
+  (if (null minimap-bufname)
+      (minimap-create)
+    (minimap-kill)))
+
 ;; init.el ends here.
