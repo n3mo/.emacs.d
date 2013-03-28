@@ -19,6 +19,26 @@ output. Similar to running `eval-last-sexp' with the prefix argument,
     (kill-sexp -1)
     (insert (format "%s" value))))
 
+(defun google ()
+  "Google the selected region if any, display a query prompt otherwise."
+  (interactive)
+  (browse-url
+   (concat
+    "http://www.google.com/search?ie=utf-8&oe=utf-8&q="
+    (url-hexify-string (if mark-active
+			   (buffer-substring (region-beginning) (region-end))
+			 (read-string "Google: "))))))
+
+(defun copy-current-file-name ()
+  "Adds the current buffer file name to the kill ring"
+  (interactive)
+  (let ((filename (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (buffer-file-name))))
+    (when filename
+      (kill-new filename)
+      (message "File name '%s' added to the kill ring." filename))))
+
 ;; Taken from Magnar's blog "What the .emacs.d!?". These two functions
 ;; make it simple to move a line up or down by one. They are bound to
 ;; C-S-Up and C-S-Down in my keybindings file
