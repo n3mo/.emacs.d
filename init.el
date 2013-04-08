@@ -399,4 +399,12 @@
       (minimap-create)
     (minimap-kill)))
 
+;; I've been experimenting with smartparens-mode. Here's a local-pair
+;; customization for working with inline math in latex-mode
+;; latex-mode
+(add-hook 'smartparens-mode-hook (lambda ()
+  (sp-with-modes '(tex-mode plain-tex-mode latex-mode)
+		 (sp-local-pair "$" "$"))))
+
+
 ;; init.el ends here.
