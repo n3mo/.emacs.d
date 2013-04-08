@@ -88,5 +88,8 @@
 (global-set-key (kbd "<M-up>") 'move-text-up)
 (global-set-key (kbd "<M-down>") 'move-text-down)
 
+;; This clones the current line, commenting out the first instance,
+;; and returns point to where you were.
+(global-set-key (kbd "C-c C-w") 'copy-and-comment-region)
 
 (provide 'key-bindings)
