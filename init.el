@@ -404,7 +404,14 @@
 ;; latex-mode
 (add-hook 'smartparens-mode-hook (lambda ()
   (sp-with-modes '(tex-mode plain-tex-mode latex-mode)
-		 (sp-local-pair "$" "$"))))
+		 (sp-local-pair "$" "$")
+		 (sp-local-pair "`" nil :actions :rem)
+		 (sp-local-pair "'" nil :actions '(:rem insert))
+		 (sp-local-pair "\"" nil :actions '(:rem insert)))))
 
+;; In general, I don't want smartparens to match the "'" symbol when
+;; it follows a word because this usage usually implies an apostrophe,
+;; as in "Mum's the word". 
+(sp-pair "'" nil :unless '(sp-point-after-word-p))
 
 ;; init.el ends here.
