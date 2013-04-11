@@ -92,4 +92,9 @@
 ;; and returns point to where you were.
 (global-set-key (kbd "C-c C-w") 'copy-and-comment-region)
 
+;; This runs my custom underline-text function for creating easy
+;; section headings. Prefix with the universal argument to get
+;; prompted for character type.
+(global-set-key (kbd "C-c u") 'underline-text)
+
 (provide 'key-bindings)

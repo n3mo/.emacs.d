@@ -72,6 +72,26 @@ Current position is preserved."
     (comment-region beg end)
     (goto-char orig-pos))))
 
+;; My own function for quickly underlining section headings. I set
+;; this to a key binding in .../.emacs.d/key-bindings.el
+(defun underline-text (prefixArgCode)
+  "Underlines the current line and moves point to the beginning
+of the line directly following the underlining. If
+`universal-argument' is called, prompts user for underline
+character, otherwise uses the = character."
+  (interactive "P")
+  (let ((selection (buffer-substring-no-properties
+		    (line-beginning-position)
+		    (line-end-position)))
+	(under-char
+	 (if (equal prefixArgCode nil)
+	     "="
+	   (read-key-sequence "Char?"))))
+    (end-of-line)
+    (newline-and-indent)
+    (insert (apply 'concat (make-list (length selection) under-char)))
+    (next-line 1)
+    (beginning-of-line)))
 
 ;; Taken from Magnar's blog "What the .emacs.d!?". These two functions
 ;; make it simple to move a line up or down by one. They are bound to
