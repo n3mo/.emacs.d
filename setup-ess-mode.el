@@ -1,63 +1,72 @@
-;; The files for ess-mode are installed in
-;; /Applications/Emacs.app/Contents/Resources/site-lisp/ 
-;; 
-
-;; This activates the mode AFTER my ELPA/MELP/etc packages
-;; load. Loading this first (the default without the hook) won't
-;; work. This should run without error even if ESS is not installed on
-;; your system.
+;; I no longer install ESS manually, opting instead to install from
+;; the MELPA repository using Emacs package.el.  My setup file
+;; activates the mode AFTER my ELPA/MELP/etc packages load, otherwise
+;; ess-site won't be recognized. This should run without error even if
+;; ESS is not installed on your system.
 (add-hook 'after-init-hook 
 	  (lambda ()
-	    (progn
-			     
-	      (if (require 'ess-site nil t)
+	    (if (require 'ess-site nil t)
+		(progn
 
-		  ;; This prevents eval-region (C-c C-r) from printing commands in the R
-		  ;; process buffer. By setting this to nil, there is a tremendous
-		  ;; speedup for eval-region.
+		  ;; This prevents eval-region (C-c C-r) and similar
+		  ;; commands from printing in the R process
+		  ;; buffer. By setting this to nil, there is a
+		  ;; tremendous speedup for eval-region (results are
+		  ;; still printed, just not the invoking code)
 		  (setq ess-eval-visibly-p nil)
 
-		;; The following line was added so that when using iESS to interact
-		;; with R, the process buffer running R will always scroll 
-		;; automatically when the output reaches the bottom of the window.
-		(setq ess-comint-scroll-to-bottom-on-output t)
+		  ;; The following line was added so that when using
+		  ;; iESS to interact with R, the process buffer
+		  ;; running R will always scroll automatically when
+		  ;; the output reaches the bottom of the window.
+		  (setq ess-comint-scroll-to-bottom-on-output t)
 
-		;; Move the binding for 'ess-smart-underscore from Shift-minus to
-		;; Control-= thereby restoring the usual way to enter an underscore
-		;; character.  (princ "In all ESS buffers, 'C-=' will be bound to
-		;; 'ess-smart-underscore. "). 
-		;; (setq ess-S-assign-key (kbd "C-="))
-		;; (ess-toggle-S-assign-key t)
-		(ess-toggle-underscore nil)
+		  ;; I do not want ess to insert <- when _ is
+		  ;; pressed. I use _ far more often than <-, which I
+		  ;; only use for function declarations, not for
+		  ;; setting other variables. 
+		  (ess-toggle-underscore nil)
 
-		;; Some custom hooks
-		(add-hook 'ess-mode-hook 
-			  (lambda () 
-			    (setq truncate-lines t)))
+		  ;; Some custom hooks
+		  (add-hook 'ess-mode-hook 
+			    (lambda () 
+			      (setq truncate-lines t)
+			      (auto-fill-mode)))
 
-		(add-hook 'R-mode-hook 'auto-fill-mode)
-		;; auto yasnippet creating for R mode
-		;; (require 'r-autoyas)
-		;; (add-hook 'ess-mode-hook 'r-autoyas-ess-activate)
-))))
+		  ;; r-autoyas is an interesting mode for
+		  ;; auto-creating yasnippet completions. Mostly, it
+		  ;; just gets in the way as it only works for some
+		  ;; functions. I prefer to use my own custom
+		  ;; snippets.
 
-		;; Taken from Section 4.5 of the ESS manual:
+		  ;; (require 'r-autoyas) (add-hook 'ess-mode-hook
+		  ;; 'r-autoyas-ess-activate)
+		  ))))
+
+;; Taken from Section 4.5 of the ESS manual:
 (eval-after-load "comint" 
   '(progn 
-     ;; The following makes the up/down keys behave like in the Matlab console window:
+     ;; The following makes the up/down keys behave like typical
+     ;; console windows: for cycling through previous commands
      (define-key comint-mode-map [up] 
        'comint-previous-matching-input-from-input) 
      (define-key comint-mode-map [down] 
        'comint-next-matching-input-from-input) 
 
-     ;; Make C-left and A-left skip the R prompt at the beginning of line
+     ;; Make C-left and A-left skip the R prompt at the beginning of
+     ;; line
      (define-key comint-mode-map [A-left] 'comint-bol)               
      (define-key comint-mode-map [C-left] 'comint-bol)               
 
-     ;; also recommended for ESS use by the ESS manual:
+     ;; This ensures that the R process window scrolls automatically
+     ;; when new output appears (otherwise you're scrolling manually
+     ;; all the time).
      (setq comint-scroll-to-bottom-on-output 'others) 
      (setq comint-scroll-show-maximum-output t)
-     ;; somewhat extreme, almost disabling writing in *R*, *shell* buffers above prompt
-     (setq comint-scroll-to-bottom-on-input 'this) )) ; eval-after-load "comint"
+     ;; Somewhat extreme, almost disabling writing in *R*, *shell*
+     ;; buffers above prompt
+     (setq comint-scroll-to-bottom-on-input 'this)))
 
 (provide 'setup-ess-mode)
+
+;; setup-ess-mode ends here
