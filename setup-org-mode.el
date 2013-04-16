@@ -47,11 +47,13 @@
 
 ;; Babel language support for org-mode. Babel allows you to embed
 ;; code directly into org files, but you must first specify which
-;; languages to allow.
+;; languages to allow. Emacs-lisp should be enabled by default... I
+;; specify it anyways... because it makes me happy.
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((R . t)
    (sh . t)
-   (emacs-lisp . t)))
+   (emacs-lisp . t)
+   (python . t)))
 
 (provide 'setup-org-mode)
