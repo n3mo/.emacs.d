@@ -42,6 +42,9 @@
 ;; stop C-c C-c within code blocks from querying
 (setq org-confirm-babel-evaluate nil)
 
+;; fontify code blocks in org files
+(setq org-src-fontify-natively t)
+
 ;; Babel language support for org-mode. Babel allows you to embed
 ;; code directly into org files, but you must first specify which
 ;; languages to allow.
