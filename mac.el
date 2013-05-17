@@ -55,9 +55,11 @@
 			   (define-key message-mode-map "\C-c\t"
 			     'external-abook-try-expand)))))
 
-      ;; Move to trash when deleting stuff
-      (setq delete-by-moving-to-trash t
-	    trash-directory "~/.Trash/emacs")
+      ;; I've moved this to init.el, because I want this trash
+      ;; behavior on all of my machines.  
+      ;; Move to trash when deleting stuff 
+      ;; (setq delete-by-moving-to-trash t trash-directory
+      ;; 	    "~/.Trash/emacs") 
 
       ;; Racket tweaks
       ;; Despite my efforts to fix path issues on my mac (including
