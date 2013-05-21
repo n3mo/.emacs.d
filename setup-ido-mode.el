@@ -1,3 +1,6 @@
+;; I want fancy matching on ido completion
+(setq ido-enable-flex-matching t)
+
 ;; Add ido functionality to recent files mode. This works in
 ;; combination with 
 (defun ido-recentf-open ()
