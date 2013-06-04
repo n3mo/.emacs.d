@@ -356,7 +356,7 @@
 ;; ?e, etc. below)
 (set-register ?e '(file . "~/.emacs.d/"))
 ;; My most current project directory
-(set-register ?p '(file . "~/main/work/MLExper/WMPL3"))
+(set-register ?p '(file . "~/main/work/MLExper/WMPL4"))
 
 ;; Markdown mode is enabled for file type .md, as this is what's used
 ;; by github
