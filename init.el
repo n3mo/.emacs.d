@@ -415,4 +415,11 @@
 			     (sp-local-pair "\"" nil :actions '(:rem insert)))
 	      (sp-pair "'" nil :unless '(sp-point-after-word-p)))))
 
+;; I think I like switch-window.el. It essentially lets you navigate
+;; between windows in the same manner as ace jump mode, rather than
+;; using C-x o to manually cycle through windows. Considering how
+;; rarely I actuall open more than two windows, however, this may not
+;; be worth the load time.
+(require 'switch-window nil t)
+
 ;; init.el ends here.
