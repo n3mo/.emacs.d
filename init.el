@@ -72,6 +72,12 @@
 ;; instead
 ;; (setq ring-bell-function 'ignore)
 
+;; When I manually open a file in my file browser, I want it to open
+;; as a new buffer in the current frame, NOT as a new frame unto
+;; itself. On my mac, this is required to make this happen:
+(setq ns-pop-up-frames nil)
+
+;; Love me some autofill
 (add-hook 'emacs-lisp-mode-hook 'auto-fill-mode)
 
 ;; Add color to a shell running in emacs 'M-x shell'
