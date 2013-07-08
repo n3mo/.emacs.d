@@ -39,6 +39,12 @@ output. Similar to running `eval-last-sexp' with the prefix argument,
       (kill-new filename)
       (message "File name '%s' added to the kill ring." filename))))
 
+;; Insert date (formatted as I prefer it)
+(defun n-timestamp ()
+  "Insert time stamp as I like it into source code at point"
+  (interactive)
+  (insert (format-time-string "%Y-%m-%d")))
+
 ;; This was taken from a comment on the page
 ;; https://gist.github.com/prakashk/5319782 where commenter
 ;; noahfriedman improved upon the gist by accounting for active
