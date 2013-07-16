@@ -20,21 +20,21 @@
 
 ;; Chicken-doc customization for finding documentation of sexp at
 ;; point
-(defun chicken-doc (&optional obtain-function)
-  (interactive)
-  (let ((func (funcall (or obtain-function 'current-word))))
-    (when func
-      (process-send-string (scheme-proc)
-                           (format "(require-library chicken-doc) ,doc %S\n" func))
-      (save-selected-window
-        (select-window (display-buffer (get-buffer scheme-buffer) t))
-        (goto-char (point-max))))))
+;; (defun chicken-doc (&optional obtain-function)
+;;   (interactive)
+;;   (let ((func (funcall (or obtain-function 'current-word))))
+;;     (when func
+;;       (process-send-string (scheme-proc)
+;;                            (format "(require-library chicken-doc) ,doc %S\n" func))
+;;       (save-selected-window
+;;         (select-window (display-buffer (get-buffer scheme-buffer) t))
+;;         (goto-char (point-max))))))
 
-(eval-after-load 'cmuscheme
-  '(define-key scheme-mode-map "\C-cd" 'chicken-doc))
-(eval-after-load 'cmuscheme
- '(define-key inferior-scheme-mode-map "\C-cd"
-    (lambda () (interactive) (chicken-doc 'sexp-at-point))))
+;; (eval-after-load 'cmuscheme
+;;   '(define-key scheme-mode-map "\C-cd" 'chicken-doc))
+;; (eval-after-load 'cmuscheme
+;;  '(define-key inferior-scheme-mode-map "\C-cd"
+;;     (lambda () (interactive) (chicken-doc 'sexp-at-point))))
 
 ;; Or better yet, chicken-slime integration!
 ;; Where Eggs are installed
