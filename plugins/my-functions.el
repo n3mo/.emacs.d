@@ -45,6 +45,19 @@ output. Similar to running `eval-last-sexp' with the prefix argument,
   (interactive)
   (insert (format-time-string "%Y-%m-%d")))
 
+;; Insert degree symbol. I need this often enough that it irritates me
+;; to type it manually. This will insert the unicode ° symbol in most
+;; buffers, but when latex-mode is active, it will insert ^{\circ} as
+;; LaTeX expects it.
+(defun n-insert-degree ()
+  "Inserts the degree symbol in unicode, or as latex code if the
+current major mode is latex-mode"
+  (interactive)
+  (let ((current-mode (with-current-buffer (current-buffer) major-mode)))
+    (if (string= "latex-mode" current-mode)
+	(insert "^{\\circ}")
+      (insert "°"))))
+
 ;; This was taken from a comment on the page
 ;; https://gist.github.com/prakashk/5319782 where commenter
 ;; noahfriedman improved upon the gist by accounting for active
