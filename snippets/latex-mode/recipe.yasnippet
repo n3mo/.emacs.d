@@ -1,0 +1,40 @@
+# -*- mode: snippet -*-
+# name: recipe
+# key: recipe
+# --
+
+\begin{recipe}
+[ % 
+    preparationtime = {\unit[${2:45}]{m}},
+    bakingtime,
+    bakingtemperature,
+    portion = {\portion{${3:6+}}},
+    calory,
+    % source = Tara
+]
+{${1:Recipe Title}}
+    
+    % \graph                  
+    % {% pictures
+    %     small=pics/photo_file_1,     % small picture
+    %     big=pics/photo_file_2   % big picture
+    % }
+    
+    \ingredients
+    {%
+    $0%\multicolumn{2}{c}{\textbf{${4:Ingredient Heading}} \\
+    \unit[1]{tsp} & ingredient \\\
+      1 & ingredient
+    }
+    
+    \preparation
+    {%
+        \step This is the first step
+    }
+    
+    \hint
+    {%
+	Enter optional hint here.
+    }
+
+\end{recipe}
