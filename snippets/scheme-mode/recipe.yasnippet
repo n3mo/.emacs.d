@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# name: recipe
+# key: recipe
+# --
+;; Recipe
+  (("title" . "${1:Recipe}")
+   ("cat" . "${2:Soup}")
+   ("preptime" . "${3:10 minutes}")
+   ("baketime" . "${4:30 minutes}")
+   ("baketemp" . "${5:350°F}")
+   ("portion" . "${6:3-4}")
+   ("calories" . "")
+   ("ing" . ((("title" . "${7:Ing sub-heading}")
+	      ("ing" . (
+			($0"1 Tbs" "Olive oil")
+			("1" "Garlic clove"))))))
+   ("prep" . ("Step 1 instructions"
+	      "Step 2 instructions"))
+   ("hint" . ("Optionally leave hint blank")))
