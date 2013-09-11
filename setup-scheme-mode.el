@@ -42,10 +42,14 @@
 (autoload 'chicken-slime "chicken-slime" "SWANK backend for Chicken" t)
 ;; We can now load functionality by running the function chicken-slime
 ;; in Emacs
+;; (add-hook 'scheme-mode-hook
+;;           (lambda ()
+;;            (slime-mode f)
+;; 	   (auto-fill-mode t)))
+
 (add-hook 'scheme-mode-hook
           (lambda ()
-           (slime-mode t)
-	   (auto-fill-mode t)))
+	    (auto-fill-mode t)))
 
 
 
