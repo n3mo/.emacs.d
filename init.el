@@ -426,6 +426,7 @@
 ;; using C-x o to manually cycle through windows. Considering how
 ;; rarely I actuall open more than two windows, however, this may not
 ;; be worth the load time.
-(require 'switch-window nil t)
+(add-hook 'after-init-hook (lambda ()
+			     (require 'switch-window nil t)))
 
 ;; init.el ends here.
