@@ -105,7 +105,8 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/cyberpunk-theme.el/")
 ;; (load-theme 'wombat t) ;; Previous favorite
 (load-theme 'cyberpunk t)  ;; My theme
-;; (load-theme 'tango t) ;; For exporting org files
+;; (load-theme 'tango t) ;; For exporting org files. Even better, load
+;; no themes at startup for best looking exporting of code blocks.
 
 ;; Enable disabled commands
 (put 'upcase-region 'disabled nil)
