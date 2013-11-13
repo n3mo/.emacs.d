@@ -20,7 +20,7 @@
 	  (function (lambda ()
 		      (flyspell-mode)
 		      (visual-line-mode)
-		      (auto-fill-mode)
+		      ;(auto-fill-mode)
 		      (local-unset-key (kbd "C-c SPC")))))
 
 (setq org-directory "~/main/org")
