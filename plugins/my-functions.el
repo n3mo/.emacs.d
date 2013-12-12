@@ -14,12 +14,12 @@
 ;; htmlize is used, the current theme determines the css coloring. 
 (defun my-htmlize-region (beg end)
   "Htmlize region and put into <pre> tag style that is left in <body> tag
-plus add font-size: 8pt"
+plus add font-size: 10pt"
   (interactive "r")
   (let* ((buffer-faces (htmlize-faces-in-buffer))
          (face-map (htmlize-make-face-map (adjoin 'default buffer-faces)))
          (pre-tag (format
-                   "<pre style=\"%s font-size: 8pt\">"
+                   "<pre style=\"%s font-size: 10pt\">"
                    (mapconcat #'identity (htmlize-css-specs
                                           (gethash 'default face-map)) " ")))
          (htmlized-reg (htmlize-region-for-paste beg end)))
