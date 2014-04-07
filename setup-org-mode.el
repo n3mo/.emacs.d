@@ -23,6 +23,14 @@
 		      ;(auto-fill-mode)
 		      (local-unset-key (kbd "C-c SPC")))))
 
+;; The following adds my own custom template expansion(s). Start a
+;; line with <r (or replace r with another key) and press TAB to
+;; generate the text I've supplied.
+(eval-after-load 'org
+  '(progn
+     (add-to-list 'org-structure-template-alist
+		  '("r" "#+BEGIN_SRC R :exports both :results graphics :file ./fig_1?.png\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))))
+
 (setq org-directory "~/main/org")
 (setq org-default-notes-file (concat org-directory "/todo.org"))
 
