@@ -28,8 +28,12 @@
 ;; generate the text I've supplied.
 (eval-after-load 'org
   '(progn
+     ;; This R template exports code and results only
      (add-to-list 'org-structure-template-alist
-		  '("r" "#+BEGIN_SRC R :exports both :results graphics :file ./fig_1?.png\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))))
+		  '("r" "#+BEGIN_SRC R :exports both :results output\n?\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))
+     ;; This R template generates a code block for exporting figures
+     (add-to-list 'org-structure-template-alist
+		  '("R" "#+BEGIN_SRC R :exports both :results graphics :file ./fig_1?.png\n\n#+END_SRC" "<src lang=\"?\">\n\n</src>"))))
 
 (setq org-directory "~/main/org")
 (setq org-default-notes-file (concat org-directory "/todo.org"))
