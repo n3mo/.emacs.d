@@ -112,13 +112,6 @@
 (put 'upcase-region 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
 
-;; Ace-jump-mode. This minor mode provides quick navigation through
-;; the buffer by jumping to target words, characters, or lines. The
-;; mode is mainted on github at
-;; https://github.com/winterTTr/ace-jump-mode. The keybinding is
-;; defined in "key-bindings.el"  
-(require 'ace-jump-mode)
-
 ;; The standard zap-to-char function kills up through and including
 ;; the provided letter. I'd prefer to have it NOT kill the provided
 ;; letter, but instead kill everything up to it, leaving point just
