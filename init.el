@@ -2,6 +2,9 @@
 (dolist (mode '(tool-bar-mode scroll-bar-mode))
   (when (fboundp mode) (funcall mode -1)))
 
+;; Disable menu bar
+(menu-bar-mode -1)
+
 ;; Don't load the startup screen. It's obnoxious
 (setq inhibit-startup-message t)
 (setq inhibit-splash-screen t)
