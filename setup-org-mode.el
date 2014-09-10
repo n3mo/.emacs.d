@@ -11,7 +11,7 @@
 ;; built-in version. This is a shame, as every time I update org-mode
 ;; with package.el, I will need to manually change the load-path
 ;; below. 
-(add-to-list 'load-path "~/.emacs.d/elpa/org-20140630/")
+(add-to-list 'load-path "~/.emacs.d/elpa/org-20140908")
 ;; (require 'org-install) ;; This also shouldn't be necessary...
 
 ;; The local-unset-key in this hook removes the org-mode binding that
