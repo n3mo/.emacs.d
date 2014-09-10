@@ -103,11 +103,14 @@
 ;; As above indicates, I'm making the move away from the
 ;; color-theme-package (not because I really hated it, but because
 ;; Emacs has built in support now that I'd rather use). My custom
-;; added themes are in the following directory
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/cyberpunk-theme.el/")
+;; added themes are in the following directory. UPDATE as of
+;; 2014-07-15: I now use my cyberpunk theme via melpa so that I can
+;; verify that updates I make are reflected in melpa
+;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/cyberpunk-theme.el/")
 ;; (load-theme 'wombat t) ;; Previous favorite
-(load-theme 'cyberpunk t)  ;; My theme
+(add-hook 'after-init-hook 
+	  (lambda () (load-theme 'cyberpunk t)))  ;; My theme
 ;; (load-theme 'tango t) ;; For exporting org files. Even better, load
 ;; no themes at startup for best looking exporting of code blocks.
 
