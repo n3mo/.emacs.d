@@ -383,7 +383,7 @@
 (add-hook 'clojure-mode-hook 'paredit-mode)
 
 ;; Quicklisp seems to be the wave of the future
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
+;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
 ;; This sets the default common lisp program
 (setq inferior-lisp-program "sbcl")
 
