@@ -19,6 +19,7 @@
 (add-to-list 'load-path "~/.emacs.d/plugins/r-autoyas")
 (add-to-list 'load-path "/Applications/Emacs.app/Contents/Resources/site-lisp")
 (add-to-list 'load-path "~/.emacs.d/plugins/noob-arrows-mode.el/")
+(add-to-list 'load-path "~/.emacs.d/setup")
 
 ;; Move to trash when deleting stuff
 (setq delete-by-moving-to-trash t)
@@ -33,7 +34,7 @@
 ;; Set path to .emacs.d
 (setq dotfiles-dir (file-name-directory
                     (or (buffer-file-name) load-file-name)))
-(add-to-list 'load-path dotfiles-dir)
+;; (add-to-list 'load-path dotfiles-dir)
 
 ;; Keep emacs Custom-settings in separate file
 (setq custom-file (expand-file-name "custom.el" dotfiles-dir))
