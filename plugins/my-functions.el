@@ -181,21 +181,24 @@ C-u', does not underline whitespace embedded in the line."
     (save-restriction
       (narrow-to-region
         (re-search-forward
-	  "\\(\s*#+\\)\\|\\(\s*;+\\)\\|\\(\s*//\\)\\|\\(\s*/\\*\\)\\|\s*" nil t)
+	  ;; "\\(\s*#+\\)\\|\\(\s*;+\\)\\|\\(\s*//\\)\\|\\(\s*/\\*\\)\\|\s*" nil t)
+	  "\\([[:space:]]*#+\\)\\|\\([[:space:]]*;+\\)\\|\\([[:space:]]*//\\)\\|\\([[:space:]]*/\\*\\)\\|[[:space:]]*" nil t)
 	(1+ (progn (goto-char (line-end-position))
-	           (re-search-backward "[^\s]" nil t))))
+	           (re-search-backward "[^[:space:]]" nil t))))
       (goto-char (point-min))
       (if (= arg 16)
-        (while (re-search-forward "[^\s]" nil t)
+        (while (re-search-forward "[^[:space:]]" nil t)
           (replace-match underline-char nil))
-       (re-search-forward "[^\s]" nil t)
+       (re-search-forward "[^[:space:]]" nil t)
        (goto-char (1- (point)))
        (while (re-search-forward "." nil t)
          (replace-match underline-char nil)))
        (widen))
-       (if (and original-point-is-eol (not original-point-is-eob))
-	 (goto-char (re-search-forward "^"))
-	(goto-char original-point)))))
+    (if original-point-is-eob
+	(goto-char (point-max))
+      (if original-point-is-eol
+	  (goto-char (re-search-forward "^"))
+	(goto-char original-point))))))
 
 
 
