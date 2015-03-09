@@ -124,24 +124,78 @@ Current position is preserved."
 
 ;; My own function for quickly underlining section headings. I set
 ;; this to a key binding in .../.emacs.d/key-bindings.el
-(defun underline-text (prefixArgCode)
-  "Underlines the current line and moves point to the beginning
-of the line directly following the underlining. If
-`universal-argument' is called, prompts user for underline
-character, otherwise uses the = character."
-  (interactive "P")
-  (let ((selection (buffer-substring-no-properties
-		    (line-beginning-position)
-		    (line-end-position)))
-	(under-char
-	 (if (equal prefixArgCode nil)
-	     "="
-	   (read-key-sequence "Char?"))))
-    (end-of-line)
-    (newline-and-indent)
-    (insert (apply 'concat (make-list (length selection) under-char)))
-    (next-line 1)
-    (beginning-of-line)))
+;; (defun underline-text (prefixArgCode)
+;;   "Underlines the current line and moves point to the beginning
+;; of the line directly following the underlining. If
+;; `universal-argument' is called, prompts user for underline
+;; character, otherwise uses the = character."
+;;   (interactive "P")
+;;   (let ((selection (buffer-substring-no-properties
+;; 		    (line-beginning-position)
+;; 		    (line-end-position)))
+;; 	(under-char
+;; 	 (if (equal prefixArgCode nil)
+;; 	     "="
+;; 	   (read-key-sequence "Char?"))))
+;;     (end-of-line)
+;;     (newline-and-indent)
+;;     (insert (apply 'concat (make-list (length selection) under-char)))
+;;     (next-line 1)
+;;     (beginning-of-line)))
+
+;; I was emailed at nvanhorn@nicholasvanhorn.com by Boruch Baum
+;; (boruch_baum@gmx.com) on 2015-03-08 with his improved
+;; underline-text function inspired by my original. It is much
+;; improved
+(defun underline-text (arg)
+  "Inserts a line under the current line, filled with a default
+underline character `='. If point had been at the end of the
+line, moves point to the beginning of the line directly following
+the underlining. It does not underline the line's leading
+whitespace, trailing whitespace, or comment symbols. With prefix `C-u'
+prompts user for a custom underline character. With prefix `C-u
+C-u', does not underline whitespace embedded in the line."
+
+  ; 2015 Boruch Baum <boruch_baum@gmx.com>, GPL3+ license
+  ; TODO: undo should always set point properly
+  (interactive "p")
+  (let* ((original-point (point))
+         (underline-char
+           (replace-regexp-in-string "[[:cntrl:][:space:]]" "="
+           (if (= arg 1)
+               "="
+             (char-to-string
+	       (read-char "What character to underline with?")))))
+	 (original-point-is-eol
+	    (when (looking-at "$") t)))
+    (beginning-of-line)
+    (unless
+      (when (looking-at "[ \t]*$")
+        (beginning-of-line 0)
+        (when (looking-at "[ \t]*$")
+          (goto-char original-point)
+          (message "nothing to do")))
+    (insert (buffer-substring (line-beginning-position) (line-end-position)) "\n")
+    (save-restriction
+      (narrow-to-region
+        (re-search-forward
+	  "\\(\s*#+\\)\\|\\(\s*;+\\)\\|\\(\s*//\\)\\|\\(\s*/\\*\\)\\|\s*" nil t)
+	(1+ (progn (goto-char (line-end-position))
+	           (re-search-backward "[^\s]" nil t))))
+      (goto-char (point-min))
+      (if (= arg 16)
+        (while (re-search-forward "[^\s]" nil t)
+          (replace-match underline-char nil))
+       (re-search-forward "[^\s]" nil t)
+       (goto-char (1- (point)))
+       (while (re-search-forward "." nil t)
+         (replace-match underline-char nil)))
+       (widen))
+       (if original-point-is-eol
+	 (goto-char (re-search-forward "^"))
+	(goto-char original-point)))))
+
+
 
 ;; Taken from Magnar's blog "What the .emacs.d!?". These two functions
 ;; make it simple to move a line up or down by one. They are bound to
