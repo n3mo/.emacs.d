@@ -146,7 +146,8 @@ Current position is preserved."
 ;; I was emailed at nvanhorn@nicholasvanhorn.com by Boruch Baum
 ;; (boruch_baum@gmx.com) on 2015-03-08 with his improved
 ;; underline-text function inspired by my original. It is much
-;; improved
+;; improved. I added additional code to make it behave properly when
+;; called on the last line of the buffer
 (defun underline-text (arg)
   "Inserts a line under the current line, filled with a default
 underline character `='. If point had been at the end of the
@@ -156,7 +157,7 @@ whitespace, trailing whitespace, or comment symbols. With prefix `C-u'
 prompts user for a custom underline character. With prefix `C-u
 C-u', does not underline whitespace embedded in the line."
 
-  ; 2015 Boruch Baum <boruch_baum@gmx.com>, GPL3+ license
+  ; Copyright 2015 Boruch Baum <boruch_baum@gmx.com>, GPL3+ license
   ; TODO: undo should always set point properly
   (interactive "p")
   (let* ((original-point (point))
@@ -167,7 +168,8 @@ C-u', does not underline whitespace embedded in the line."
              (char-to-string
 	       (read-char "What character to underline with?")))))
 	 (original-point-is-eol
-	    (when (looking-at "$") t)))
+	  (when (looking-at "$") t))
+	 (original-point-is-eob (= original-point (point-max))))
     (beginning-of-line)
     (unless
       (when (looking-at "[ \t]*$")
@@ -191,7 +193,7 @@ C-u', does not underline whitespace embedded in the line."
        (while (re-search-forward "." nil t)
          (replace-match underline-char nil)))
        (widen))
-       (if original-point-is-eol
+       (if (and original-point-is-eol (not original-point-is-eob))
 	 (goto-char (re-search-forward "^"))
 	(goto-char original-point)))))
 
