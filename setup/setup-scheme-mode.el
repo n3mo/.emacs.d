@@ -3,7 +3,10 @@
 ;; editing (for example) Chicken scheme and Geiser-mode keeps
 ;; activating. Setting this to nil ensures that geiser-mode does not
 ;; activate automatically
-(setq geiser-mode-auto-p nil)
+;; (setq geiser-mode-auto-p nil)
+;; (setq geiser-active-implementations '(chicken racket guile))
+;; (setq geiser-impl-installed-implementations '(chicken racket guile))
+;; (setq geiser-chicken-binary "/home/nemo/bin/bin/csi -:c")
 
 ;; I've been experimenting with various flavors of scheme. This sets
 ;; the default binary to run when an inferior scheme lisp repl is
