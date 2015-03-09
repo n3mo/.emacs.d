@@ -181,7 +181,6 @@ C-u', does not underline whitespace embedded in the line."
     (save-restriction
       (narrow-to-region
         (re-search-forward
-	  ;; "\\(\s*#+\\)\\|\\(\s*;+\\)\\|\\(\s*//\\)\\|\\(\s*/\\*\\)\\|\s*" nil t)
 	  "\\([[:space:]]*#+\\)\\|\\([[:space:]]*;+\\)\\|\\([[:space:]]*//\\)\\|\\([[:space:]]*/\\*\\)\\|[[:space:]]*" nil t)
 	(1+ (progn (goto-char (line-end-position))
 	           (re-search-backward "[^[:space:]]" nil t))))
