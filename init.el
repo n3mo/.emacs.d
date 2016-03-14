@@ -88,11 +88,16 @@
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
+;; 2015-11-23: I now install and manage yasnippet using Melpa
 ;; This loads tab completion functionality much like Textmate
 ;; by sourcing the relevant file. Yay yasnippet!
-(require 'yasnippet-bundle)
-(yas/initialize)
-(yas/load-directory "~/.emacs.d/snippets")
+;; (require 'yasnippet-bundle)
+;; (yas/initialize)
+;; (yas/load-directory "~/.emacs.d/snippets")
+(add-hook 'after-init-hook 
+	  (lambda () 
+	    (require 'yasnippet)
+	    (yas-global-mode 1)))
 
 ;; I should probably get rid of the following eventually and switch to
 ;; the new theme support built into Emacs 24+
@@ -328,7 +333,8 @@
 ;; packages-list-packages, etc)
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
 			 ("marmalade" . "http://marmalade-repo.org/packages/")
-			 ("melpa" . "http://melpa.milkbox.net/packages/")))
+			 ("melpa" . "https://melpa.org/packages/")))
+(package-initialize)
 
 ;; This is necessary for bibtex-to-plain-text to work
 (load "bibtex")
@@ -387,6 +393,9 @@
 ;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
 ;; This sets the default common lisp program
 (setq inferior-lisp-program "sbcl")
+(require 'slime-autoloads)
+;; Also setup the slime-fancy contrib
+(add-to-list 'slime-contribs 'slime-fancy)
 
 ;; Noob arrows-- my own custom helper function for Emacs newbies
 ;; This sets the path to the help file to be displayed
@@ -429,5 +438,14 @@
 ;; be worth the load time.
 (add-hook 'after-init-hook (lambda ()
 			     (require 'switch-window nil t)))
+
+;; Which executable should ispell use
+(cond
+ ((executable-find "aspell")
+  (setq ispell-program-name "aspell")
+  (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US")))
+ ((executable-find "hunspell")
+  (setq ispell-program-name "hunspell")
+  (setq ispell-extra-args '("-d en_US"))))
 
 ;; init.el ends here.
