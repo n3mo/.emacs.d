@@ -393,9 +393,9 @@
 ;; (load (expand-file-name "~/quicklisp/slime-helper.el"))
 ;; This sets the default common lisp program
 (setq inferior-lisp-program "sbcl")
-(require 'slime-autoloads)
+(require 'slime-autoloads nil t)
 ;; Also setup the slime-fancy contrib
-(add-to-list 'slime-contribs 'slime-fancy)
+;; (add-to-list 'slime-contribs 'slime-fancy)
 
 ;; Noob arrows-- my own custom helper function for Emacs newbies
 ;; This sets the path to the help file to be displayed
