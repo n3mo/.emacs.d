@@ -24,7 +24,7 @@
 	       "/usr/local/bin" ":"
 	       "/usr/texbin" ":"
 	       "~/Library/Haskell/bin" ":"
-	       "/Applications/Racket v5.3.1/bin"
+	       "/Applications/Racket v6.4/bin"
 	       ))
 
       ;; Specifying the path to the ghostscript binary seems nessary to get
@@ -67,7 +67,7 @@
       ;; find the racket binaries on my mac. This specificies exactly
       ;; where they are to solve this problem:
       (setq geiser-racket-binary 
-	    "/Applications/Racket v5.3.1/bin/racket")
+      	    "/Applications/Racket v6.4/bin/racket")
 ))
       
 (provide 'mac)
