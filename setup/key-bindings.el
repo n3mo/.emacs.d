@@ -100,6 +100,7 @@
 ;; Keybindings to my own convenience insertion functions
 (global-set-key (kbd "C-c f d") 'n-insert-degree)
 (global-set-key (kbd "C-c f t") 'n-timestamp)
-(global-set-key (kbd "C-c f l") 'n-insert-lozenge)
+(global-set-key (kbd "C-c f z") 'n-insert-lozenge)
+(global-set-key (kbd "C-c f l") 'n-insert-lambda)
 
 (provide 'key-bindings)

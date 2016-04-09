@@ -89,6 +89,12 @@ current major mode is latex-mode"
   (interactive)
   (insert "◊"))
 
+(defun n-insert-lambda ()
+  "Inserts the lambda symbol in unicode at point"
+  (interactive)
+  (insert "λ"))
+
+
 ;; This was taken from a comment on the page
 ;; https://gist.github.com/prakashk/5319782 where commenter
 ;; noahfriedman improved upon the gist by accounting for active
