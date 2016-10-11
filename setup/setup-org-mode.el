@@ -66,6 +66,7 @@
  '((R . t)
    (sh . t)
    (emacs-lisp . t)
-   (python . t)))
+   (python . t)
+   (scheme . t)))
 
 (provide 'setup-org-mode)
