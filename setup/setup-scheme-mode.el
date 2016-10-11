@@ -11,8 +11,8 @@
 ;; I've been experimenting with various flavors of scheme. This sets
 ;; the default binary to run when an inferior scheme lisp repl is
 ;; called 
-(setq scheme-program-name "csi -:c")  ;; Chicken scheme
-;; (setq scheme-program-name "racket")  ;; Racketscheme
+;; (setq scheme-program-name "csi -:c")  ;; Chicken scheme
+(setq scheme-program-name "racket")  ;; Racketscheme
 
 ;; I'm experimenting with various chicken-scheme modes. Currently, I'm
 ;; using cluck, which is a chicken-specific fork of quack-mode:
@@ -53,11 +53,5 @@
 (add-hook 'scheme-mode-hook
           (lambda ()
 	    (auto-fill-mode t)))
-
-
-
-
-
-
 
 (provide 'setup-scheme-mode)
