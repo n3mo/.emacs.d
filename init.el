@@ -9,6 +9,14 @@
 (setq inhibit-startup-message t)
 (setq inhibit-splash-screen t)
 
+;; Initialize installed packages. If you don't do this manually,
+;; installed packages (e.g., .emacs.d/elpa/...) load after everything
+;; in Emacs proper loads. This is usually fine, but Org mode changes
+;; so much that you sometimes get errors because the default version
+;; of Org mode loads first and causes problems with variables/etc in
+;; the newer version of org
+(package-initialize)
+
 ;; Add the necessary directories to my load path. Some additional
 ;; dependencies unique to certain modes may also be loaded in their
 ;; respective files (e.g., I put the load path for the matlab-mode
