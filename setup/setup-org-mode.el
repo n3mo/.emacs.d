@@ -64,7 +64,7 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((R . t)
-   (sh . t)
+   (shell . t)
    (emacs-lisp . t)
    (python . t)
    (scheme . t)))
