@@ -456,4 +456,9 @@
   (setq ispell-program-name "hunspell")
   (setq ispell-extra-args '("-d en_US"))))
 
+;; Flymake began making (noticeable) complaints about "Disabling
+;; backend flymake-proc-legacy-flymake" and I was told to simply
+;; remove hooks to legacy functions
+(remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
+
 ;; init.el ends here.

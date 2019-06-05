@@ -67,6 +67,13 @@
      ;; buffers above prompt
      (setq comint-scroll-to-bottom-on-input 'this)))
 
+;; Added on 2019-04-30 to address a flymake error that renders ESS
+;; buffers unusable with (this problem generates countless error
+;; messages of the type: "Warning [flymake grade_calculator.r]:
+;; Disabling backend flymake-proc-legacy-flymake because (error Can’t
+;; find a suitable init function)" 
+(remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake) 
+
 (provide 'setup-ess-mode)
 
 ;; setup-ess-mode ends here
