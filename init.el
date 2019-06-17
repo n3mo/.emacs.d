@@ -58,6 +58,7 @@
 (require 'setup-ess-mode)
 (require 'setup-ido-mode)
 (require 'setup-matlab-mode)
+(require 'setup-message-mode)
 (require 'mac)
 (require 'bibtex-to-plain-text)
 (require 'key-bindings)
@@ -351,9 +352,6 @@
 (setq reftex-bibpath-environment-variables
       '("~/main/work/docs/papers/bib/"))
 
-;; Turn on spell checking when sending messages
-(add-hook 'message-mode-hook 'flyspell-mode)
-
 ;; The following lines of code are used to add a synonym method for 
 ;; thesaurus functionality.
 ;; To use library Synonyms, you will need the Moby Thesaurus II file,
@@ -460,5 +458,11 @@
 ;; backend flymake-proc-legacy-flymake" and I was told to simply
 ;; remove hooks to legacy functions
 (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
+
+;; Org reveal. This is the location of the necessary reveal.js files
+(setq org-reveal-root "file:///home/nemo/bin/js/reveal.js")
+
+;; notmuch email
+(autoload 'notmuch "notmuch" "notmuch mail" t)
 
 ;; init.el ends here.
