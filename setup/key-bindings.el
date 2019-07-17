@@ -103,4 +103,10 @@
 (global-set-key (kbd "C-c f z") 'n-insert-lozenge)
 (global-set-key (kbd "C-c f l") 'n-insert-lambda)
 
+;; notmuch email 
+(global-set-key [f12] 'notmuch)
+
+;; Magit status
+(global-set-key [f11] 'magit-status)
+
 (provide 'key-bindings)
