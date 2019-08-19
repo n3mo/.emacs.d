@@ -12,7 +12,7 @@
       ;; noticed Magnars (Emacs Rocks!) does something in his setup file
       ;; mac.el
       (setenv "PATH"
-	      (concat
+	      (concat	       
 	       "/Users/nemo/bin" ":"
 	       "/opt/subversion/bin" ":"
 	       "/sw/bin" ":"
@@ -24,6 +24,7 @@
 	       "/usr/local/bin" ":"
 	       "/usr/texbin" ":"
 	       "~/Library/Haskell/bin" ":"
+	       "/Library/TeX/texbin" ":"
 	       "/Applications/Racket v6.12/bin"
 	       ))
 
