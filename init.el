@@ -459,6 +459,10 @@
 ;; remove hooks to legacy functions
 (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake)
 
+;; Require org-reveal at startup to make it available in org-mode
+;; export options
+(require 'ox-reveal)
+
 ;; Org reveal. This is the location of the necessary reveal.js files
 (setq org-reveal-root "file:///home/nemo/bin/js/reveal.js")
 
