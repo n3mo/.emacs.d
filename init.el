@@ -465,6 +465,7 @@
 
 ;; Org reveal. This is the location of the necessary reveal.js files
 (setq org-reveal-root "file:///home/nemo/bin/js/reveal.js")
+(require 'ox-reveal)
 
 ;; notmuch email
 (autoload 'notmuch "notmuch" "notmuch mail" t)
