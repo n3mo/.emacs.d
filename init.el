@@ -469,4 +469,7 @@
 ;; notmuch email
 (autoload 'notmuch "notmuch" "notmuch mail" t)
 
+;; gpg setup for opening gpg files in emacs
+(setf epa-pinentry-mode 'loopback)
+
 ;; init.el ends here.
