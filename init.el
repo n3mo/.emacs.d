@@ -473,4 +473,7 @@
 ;; gpg setup for opening gpg files in emacs
 (setf epa-pinentry-mode 'loopback)
 
+;; Help j-mode for j programming find necessary executables
+(setq exec-path (append exec-path '("/usr/lib/j9/bin")))
+
 ;; init.el ends here.
