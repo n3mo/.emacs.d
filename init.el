@@ -475,5 +475,6 @@
 
 ;; Help j-mode for j programming find necessary executables
 (setq exec-path (append exec-path '("/usr/lib/j9/bin")))
+(setq j-console-cmd "jconsole")
 
 ;; init.el ends here.
