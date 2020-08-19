@@ -15,7 +15,7 @@
 ;; so much that you sometimes get errors because the default version
 ;; of Org mode loads first and causes problems with variables/etc in
 ;; the newer version of org
-(package-initialize)
+;; (package-initialize)
 
 ;; Add the necessary directories to my load path. Some additional
 ;; dependencies unique to certain modes may also be loaded in their
@@ -233,9 +233,6 @@
 (if (eq system-type 'darwin)
     ;; I manually specify the binary files here
     (setq epg-gpg-program "/usr/local/bin/gpg"))
-
-;; Mediawiki mode for wiki pages
-(require 'mediawiki)
 
 ;; I want emacs to open URLs in Conkeror. As of <2012-05-31 Thu>, URL
 ;; remoting, as it's called in conkeror, doesn't work. That is, you
