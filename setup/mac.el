@@ -7,6 +7,9 @@
       (setq mac-option-modifier 'none)
       (setq mac-command-modifier 'meta)
 
+      ;; Set default directory to home
+      (setq default-directory "~/")
+
       ;; Emacs for mac os x doesn't find my bash PATH, so I've specified it
       ;; here manually. There's probably a more elegent way of doing this. I
       ;; noticed Magnars (Emacs Rocks!) does something in his setup file
