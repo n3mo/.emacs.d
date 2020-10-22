@@ -12,9 +12,9 @@
 ;; the default binary to run when an inferior scheme lisp repl is
 ;; called 
 ;; (setq scheme-program-name "csi -:c")  ;; Chicken scheme
-(setq scheme-program-name "racket")  ;; Racketscheme
+;; (setq scheme-program-name "racket")  ;; Racketscheme
 (setq geiser-default-implementation 'racket)
-(setq geiser-chicken-binary "chicken-csi")
+(setq geiser-chicken-binary "csi")
 
 ;; I'm experimenting with various chicken-scheme modes. Currently, I'm
 ;; using cluck, which is a chicken-specific fork of quack-mode:
@@ -51,6 +51,18 @@
 ;;           (lambda ()
 ;;            (slime-mode f)
 ;; 	   (auto-fill-mode t)))
+
+;; Gerbil scheme configuration ---------------------------------
+;;
+;; I'm using gerbil-mode, installed manually. 
+(autoload 'gerbil-mode "gerbil-mode" "Gerbil editing mode." t)
+
+(require 'gambit)
+(add-hook 'inferior-scheme-mode-hook 'gambit-inferior-mode)
+
+(defvar gerbil-program-name
+  (expand-file-name "/usr/local/bin/gxi")) ; Set this for your GERBIL_HOME
+(setq scheme-program-name gerbil-program-name)
 
 (add-hook 'scheme-mode-hook
           (lambda ()

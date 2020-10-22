@@ -28,6 +28,7 @@
 (add-to-list 'load-path "/Applications/Emacs.app/Contents/Resources/site-lisp")
 (add-to-list 'load-path "~/.emacs.d/plugins/noob-arrows-mode.el/")
 (add-to-list 'load-path "~/.emacs.d/setup")
+(add-to-list 'load-path "~/.emacs.d/plugins/gerbil-mode.el")
 
 ;; Move to trash when deleting stuff
 (setq delete-by-moving-to-trash t)
