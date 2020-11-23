@@ -475,4 +475,7 @@
 (setq exec-path (append exec-path '("/usr/lib/j9/bin")))
 (setq j-console-cmd "jconsole")
 
+;; Recognize RMarkdown files
+(add-to-list 'auto-mode-alist '("\\.Rmd\\'" . markdown-mode))
+
 ;; init.el ends here.
