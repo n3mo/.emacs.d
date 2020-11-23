@@ -478,4 +478,10 @@
 ;; Recognize RMarkdown files
 (add-to-list 'auto-mode-alist '("\\.Rmd\\'" . markdown-mode))
 
+;; Customize markdown-mode minor modes
+(add-hook 'markdown-mode-hook
+	  (function (lambda ()
+		      (flyspell-mode)
+		      (visual-line-mode))))
+
 ;; init.el ends here.
