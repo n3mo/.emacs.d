@@ -68,4 +68,11 @@
           (lambda ()
 	    (auto-fill-mode t)))
 
+;; Recognize gerbil scheme files. Note that write most scheme files
+;; with the ".scm" extension. To date, I've only written gerbil scheme
+;; files with the ".ss" extention:
+
+(add-to-list 'auto-mode-alist '("\\.ss\\'" . gerbil-mode))
+(add-hook 'gerbil-mode-hook 'paredit-mode)
+
 (provide 'setup-scheme-mode)
