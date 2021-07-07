@@ -336,6 +336,13 @@
 ;; Handy key definition
 (define-key global-map "\M-Q" 'unfill-paragraph)
 
+;; This is meant to be a temporary fix for a TLS race condition that
+;; occurs when accessing HTTPS connections. For example, this occurs
+;; when running M-X package-list-packages . One day this should be
+;; removed. The solution involves preventing TLS 1.3 from running. See
+;; bug report at https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+
 ;; Here are the Emacs lisp repositories that I draw from (for
 ;; packages-list-packages, etc)
 ;; (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
